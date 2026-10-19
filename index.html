@@ -68,10 +68,6 @@ function updateGarmentPreview(){
     'Gorras':'M73 105 Q76 43 147 40 Q211 41 225 101 L226 117 Q150 99 73 120 Z'
   };
   if(shape){shape.setAttribute('fill',colors[$('color').value]||'#737373');shape.setAttribute('d',silhouettes[kind]||silhouettes['Playeras']);}
-  const neck=document.querySelector('#garmentSvg path:nth-of-type(1)');
-  if(neck)neck.setAttribute('d',kind==='Gorras'?'M73 105 Q145 92 225 101':'M126 24 Q150 66 174 24');
-  const seams=document.querySelectorAll('#garmentSvg path:nth-of-type(2),#garmentSvg path:nth-of-type(3)');
-  seams.forEach(el=>el.setAttribute('d',kind==='Pantalones'?'M145 145 L145 260 M92 132 L92 260':'M110 112 L110 251 M190 112 L190 251'));
   $('shirtBadge').textContent='VISTA PREVIA · '+kind.toUpperCase()+' · '+$('color').value.toUpperCase();
   $('garmentSvg').setAttribute('aria-label','Vista previa ilustrada de '+kind.toLowerCase()+' color '+$('color').value);
   updateLogoPreview();
