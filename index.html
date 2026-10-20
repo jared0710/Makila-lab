@@ -343,6 +343,7 @@ function directPointerUp(e){
  }
  if(!directPointers.size){directGesture=null;saveMockupSide()}
 }
+const directStage=$('shirtStage'); if(directStage){directStage.addEventListener('pointerdown',directPointerDown,{passive:false});directStage.addEventListener('pointermove',directPointerMove,{passive:false});directStage.addEventListener('pointerup',directPointerUp);directStage.addEventListener('pointercancel',directPointerUp);}
 $('designRotation')?.addEventListener('input',e=>{if(!directSelected)return;directState()[directKey(directSelected)+'Rotation']=Number(e.target.value);updateLogoPreview();saveMockupSide()});
 $('logoScale').addEventListener('input',e=>{const s=directState(),value=Number(e.target.value),image=$('logoPreview');s.imageScale=value;if(directSelected&&directKey(directSelected)==='text')s.textScale=value;updateLogoPreview();saveMockupSide()});
 $('logoUpload').addEventListener('change',()=>{setTimeout(()=>{const p=$('logoPreview');if(p.dataset.loaded){const s=directState();s.imageX=s.imageX??50;s.imageY=s.imageY??39;s.imageScale=Number($('logoScale').value||55);updateLogoPreview()}},0)});
