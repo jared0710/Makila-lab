@@ -12,7 +12,7 @@
 /* Editor directo: arrastrar, zoom táctil y rotación */
 .realistic-stage .logo-overlay,.realistic-stage .logo-text-preview{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;max-width:none;max-height:none;transform:translate(-50%,-50%) rotate(var(--design-rotation,0deg));z-index:6}
 .realistic-stage .logo-overlay:active,.realistic-stage .logo-text-preview:active{cursor:grabbing;outline:1px dashed #e9bd63;outline-offset:3px}
-#shirtStage{touch-action:pan-y}
+#shirtStage{touch-action:none}
 .drag-help{font-size:11px;line-height:1.5;color:#d7c08e;margin:8px 0}
 
 .color-picker-field input[type="color"]::-webkit-color-swatch-wrapper{padding:2px}.color-picker-field input[type="color"]::-webkit-color-swatch{border:0;border-radius:5px}
@@ -315,7 +315,7 @@ function directPointerMove(e){
  const s=directState(),g=directGesture,k=g.key;
  if(directPointers.size>=2){
   const pts=[...directPointers.values()],dist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
-  if(g.pinchStartDist)s[k+'Scale']=Math.max(5,Math.min(100,g.pinchStartScale*dist/g.pinchStartDist));
+  if(g.pinchStartDist){const next=Math.max(5,Math.min(100,g.pinchStartScale*dist/g.pinchStartDist));s[k+'Scale']=next;if(k==='image')s.imageScale=next;}
  }else{
   s[k+'X']=Math.max(3,Math.min(97,g.x+(e.clientX-g.startX)/g.rect.width*100));
   s[k+'Y']=Math.max(3,Math.min(97,g.y+(e.clientY-g.startY)/g.rect.height*100));
