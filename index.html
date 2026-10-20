@@ -317,7 +317,7 @@ $('shirtStage').addEventListener('pointermove',directPointerMove);
 $('shirtStage').addEventListener('pointerup',directPointerUp);
 $('shirtStage').addEventListener('pointercancel',directPointerUp);
 $('designRotation')?.addEventListener('input',e=>{if(!directSelected)return;directState()[directKey(directSelected)+'Rotation']=Number(e.target.value);updateLogoPreview();saveMockupSide()});
-$('logoScale').addEventListener('input',e=>{const s=directState();s.imageScale=Number(e.target.value);if(directSelected)s[directKey(directSelected)+'Scale']=Number(e.target.value);updateLogoPreview()});
+$('logoScale').addEventListener('input',e=>{const s=directState(),value=Number(e.target.value),image=$('logoPreview');s.imageScale=value;if(image&&image.dataset.loaded){s.imageScale=value;s.imageScale=value;if(directSelected&&directKey(directSelected)==='image')s.imageScale=value;}else if(directSelected)s[directKey(directSelected)+'Scale']=value;updateLogoPreview();saveMockupSide()});
 $('logoUpload').addEventListener('change',()=>{setTimeout(()=>{const p=$('logoPreview');if(p.dataset.loaded){const s=directState();s.imageX=s.imageX??50;s.imageY=s.imageY??39;s.imageScale=Number($('logoScale').value||55);updateLogoPreview()}},0)});
 const originalClearLogo=clearLogo;
 clearLogo=function(){originalClearLogo();const s=directState();s.image='';s.text='';s.imageX=50;s.imageY=activeMockupSide==='back'?30:39;s.textX=50;s.textY=activeMockupSide==='back'?30:39;s.imageRotation=0;s.textRotation=0;updateLogoPreview()};
