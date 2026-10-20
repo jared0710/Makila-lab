@@ -8,6 +8,13 @@
 /* Asistente de diseño con IA */
 .ai-assistant{margin:16px 0 22px;padding:15px;border:1px solid #6b5128;border-radius:14px;background:linear-gradient(160deg,#17130d,#101010 65%)}.ai-assistant h3{margin:0 0 5px;color:var(--gold2);font-size:18px}.ai-assistant .ai-help{font-size:12px;line-height:1.5;color:#bbb;margin:0 0 12px}.ai-log{display:flex;flex-direction:column;gap:9px;max-height:240px;overflow:auto;margin:10px 0;padding:2px}.ai-message{padding:10px 12px;border-radius:11px;font-size:13px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}.ai-message.bot{background:#242018;border:1px solid #3e3320;align-self:stretch}.ai-message.user{background:#302719;border:1px solid #71552b;align-self:flex-end;max-width:92%}.ai-form{display:flex;gap:8px;align-items:stretch}.ai-form input{min-width:0;flex:1;background:#090909;color:#fff;border:1px solid #51452f;border-radius:9px;padding:12px;font:inherit;font-size:13px}.ai-form button{background:var(--gold);color:#17110a;border:0;border-radius:9px;padding:0 13px;font-weight:800;font-size:12px}.ai-form button:disabled{opacity:.55}.ai-status{min-height:16px;margin-top:8px;font-size:11px;color:#d8bd80}.ai-status.error{color:#ffaaa0}.ai-applied{font-size:11px;color:#a9d5ad;margin-top:7px}
 
+
+/* Editor directo: arrastrar, zoom táctil y rotación */
+.realistic-stage .logo-overlay,.realistic-stage .logo-text-preview{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;max-width:none;max-height:none;transform:translate(-50%,-50%) rotate(var(--design-rotation,0deg));z-index:6}
+.realistic-stage .logo-overlay:active,.realistic-stage .logo-text-preview:active{cursor:grabbing;outline:1px dashed #e9bd63;outline-offset:3px}
+#shirtStage{touch-action:pan-y}
+.drag-help{font-size:11px;line-height:1.5;color:#d7c08e;margin:8px 0}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
@@ -43,7 +50,7 @@
 <img id="logoPreview" class="logo-overlay hide" alt="Vista previa del logo">
 <div id="logoTextPreview" class="logo-text-preview hide"></div>
 </div>
-<div class="designer-tools"><h3 id="garmentToolsTitle" style="margin:0 0 8px;color:var(--gold2);font-size:15px">Personaliza tu playera</h3><div class="field"><label for="logoUpload">Sube tu logo o imagen (desde Fotos/Archivos)</label><label class="upload-label" for="logoUpload">＋ Elegir imagen</label><input id="logoUpload" type="file" accept="image/*" class="hide"><small id="uploadStatus" style="color:#aaa">PNG o JPG recomendado. La imagen solo se usa en esta vista previa.</small></div><div class="field"><label for="previewPlacement">Ubicación visual del logo</label><select id="previewPlacement"><option value="center">Centro del pecho</option><option value="left">Pecho izquierdo</option><option value="right">Pecho derecho</option><option value="upper">Espalda alta / zona superior</option><option value="lower">Zona inferior</option></select><small style="color:#999;font-size:10px">La posición es una referencia visual; confirma la ubicación final con la maquila.</small></div><div class="field"><label for="printText">Texto para estampar</label><input id="printText" maxlength="32" placeholder="Ej. MAKILA LAB"></div><div class="formgrid"><div class="field"><label for="logoScale">Tamaño del logo</label><input id="logoScale" type="range" min="20" max="100" value="55"></div><div class="field"><label for="logoY">Altura del logo</label><input id="logoY" type="range" min="25" max="75" value="48"></div></div><button type="button" class="material" onclick="clearLogo()">Quitar logo/texto</button></div>
+<div class="designer-tools"><h3 id="garmentToolsTitle" style="margin:0 0 8px;color:var(--gold2);font-size:15px">Personaliza tu playera</h3><div class="field"><label for="logoUpload">Sube tu logo o imagen (desde Fotos/Archivos)</label><label class="upload-label" for="logoUpload">＋ Elegir imagen</label><input id="logoUpload" type="file" accept="image/*" class="hide"><small id="uploadStatus" style="color:#aaa">PNG o JPG recomendado. La imagen solo se usa en esta vista previa.</small></div><div class="field"><label for="previewPlacement">Ubicación visual del logo</label><select id="previewPlacement"><option value="center">Centro del pecho</option><option value="left">Pecho izquierdo</option><option value="right">Pecho derecho</option><option value="upper">Espalda alta / zona superior</option><option value="lower">Zona inferior</option></select><small style="color:#999;font-size:10px">La posición es una referencia visual; confirma la ubicación final con la maquila.</small></div><div class="field"><label for="printText">Texto para estampar</label><input id="printText" maxlength="32" placeholder="Ej. MAKILA LAB"></div><div class="formgrid"><div class="field"><label for="logoScale">Tamaño del logo</label><input id="logoScale" type="range" min="20" max="100" value="55"></div><div class="field"><label for="logoY">Altura del logo</label><input id="logoY" type="range" min="25" max="75" value="48"></div></div><div class="field"><label for="designRotation">Rotación del elemento seleccionado</label><input id="designRotation" type="range" min="-180" max="180" value="0"><small style="color:#999">También puedes mover el logo o texto directamente con el dedo.</small></div><button type="button" class="material" onclick="clearLogo()">Quitar logo/texto</button></div>
 <div class="field"><label>COLOR DE REFERENCIA</label><div class="colorrow"><button class="swatch" aria-label="Negro" aria-pressed="true" onclick="setColor('Negro',this)"></button><button class="swatch white" aria-label="Blanco" aria-pressed="false" onclick="setColor('Blanco',this)"></button><button class="swatch blue" aria-label="Azul" aria-pressed="false" onclick="setColor('Azul marino',this)"></button><button class="swatch red" aria-label="Rojo" aria-pressed="false" onclick="setColor('Rojo',this)"></button><button class="swatch olive" aria-label="Verde olivo" aria-pressed="false" onclick="setColor('Verde olivo',this)"></button></div></div>
 <div class="field"><label>MATERIAL</label><div class="materials"><button class="material" aria-pressed="true" onclick="setMaterial('Algodón',this)">Algodón</button><button class="material" aria-pressed="false" onclick="setMaterial('Poliéster',this)">Poliéster</button><button class="material" aria-pressed="false" onclick="setMaterial('Mezclilla',this)">Mezclilla</button><button class="material" aria-pressed="false" onclick="setMaterial('Necesito recomendación',this)">Recomiéndame</button></div></div>
 <button class="fullbtn" onclick="show('design')">CREAR MI DISEÑO →</button></section>
@@ -203,4 +210,71 @@ aiForm.addEventListener('submit',async event=>{
 });
 
 renderDrafts();
+
+/* MAKILA LAB: manipulación directa de estampados */
+const directSideState={
+ front:{imageX:50,imageY:39,textX:50,textY:39,imageRotation:0,textRotation:0,imageScale:55,textScale:55},
+ back:{imageX:50,imageY:30,textX:50,textY:30,imageRotation:0,textRotation:0,imageScale:55,textScale:55}
+};
+let directPointers=new Map(), directGesture=null, directSelected=null;
+function directState(){return directSideState[activeMockupSide]||directSideState.front}
+function directKey(el){return el.id==='logoPreview'?'image':'text'}
+function directPosition(el){const s=directState(),k=directKey(el);return {x:s[k+'X'],y:s[k+'Y'],rotation:s[k+'Rotation'],scale:s[k+'Scale']}}
+function updateLogoPreview(){
+ const image=$('logoPreview'),txt=$('logoTextPreview'),s=directState();
+ const value=$('printText').value.trim();
+ image.classList.toggle('hide',!image.dataset.loaded);
+ txt.textContent=value;txt.classList.toggle('hide',!value);
+ [['image',image],['text',txt]].forEach(([k,el])=>{
+  const x=Number(s[k+'X']??50),y=Number(s[k+'Y']??40),rotation=Number(s[k+'Rotation']||0),scale=Number(s[k+'Scale']||55);
+  el.style.left=x+'%';el.style.top=y+'%';el.style.setProperty('--design-rotation',rotation+'deg');
+  if(k==='image'){el.style.width=Math.max(8,Math.min(90,scale))+'%';el.style.maxWidth='none';el.style.maxHeight='none'}
+  else {el.style.maxWidth='none';el.style.fontSize=Math.max(8,Math.min(64,10+scale*.28))+'px';el.style.padding='3px 5px'}
+ });
+ const rot=$('designRotation');if(rot&&directSelected){rot.value=s[directKey(directSelected)+'Rotation']||0}
+}
+function saveMockupSide(){
+ const s=directState();s.text=$('printText').value;s.placement=$('previewPlacement').value;s.scale=$('logoScale').value;s.y=$('logoY').value;
+ const p=$('logoPreview');s.image=p&&p.dataset.loaded?p.src:'';
+}
+function loadMockupSide(){
+ const s=directState();$('printText').value=s.text||'';
+ $('previewPlacement').value=s.placement||'center';$('logoScale').value=s.scale||s.imageScale||55;$('logoY').value=s.y||48;
+ const p=$('logoPreview');if(s.image){p.src=s.image;p.dataset.loaded='1'}else{p.removeAttribute('src');p.dataset.loaded=''}
+ updateLogoPreview();
+}
+function directPointerDown(e){
+ const el=e.target.closest('#logoPreview,#logoTextPreview');if(!el||el.classList.contains('hide'))return;
+ e.preventDefault();directSelected=el;directPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});el.setPointerCapture(e.pointerId);
+ const s=directState(),k=directKey(el),rect=$('shirtStage').getBoundingClientRect();
+ directGesture={key:k,startX:e.clientX,startY:e.clientY,x:Number(s[k+'X']),y:Number(s[k+'Y']),scale:Number(s[k+'Scale']||55),rotation:Number(s[k+'Rotation']||0),rect};
+ $('shirtStage').querySelectorAll('.logo-overlay,.logo-text-preview').forEach(n=>n.style.outline='');
+ el.style.outline='1px dashed #e9bd63';
+ if($('designRotation'))$('designRotation').value=s[k+'Rotation']||0;
+}
+function directPointerMove(e){
+ if(!directPointers.has(e.pointerId)||!directGesture||!directSelected)return;
+ directPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ const s=directState(),g=directGesture,k=g.key;
+ if(directPointers.size>=2){
+  const pts=[...directPointers.values()],dist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
+  if(g.lastDist&&dist){s[k+'Scale']=Math.max(8,Math.min(90,g.scale*dist/g.lastDist));}
+  g.lastDist=dist;
+ }else{
+  s[k+'X']=Math.max(3,Math.min(97,g.x+(e.clientX-g.startX)/g.rect.width*100));
+  s[k+'Y']=Math.max(3,Math.min(97,g.y+(e.clientY-g.startY)/g.rect.height*100));
+ }
+ updateLogoPreview();
+}
+function directPointerUp(e){directPointers.delete(e.pointerId);if(!directPointers.size){directGesture=null;saveMockupSide()}}
+$('shirtStage').addEventListener('pointerdown',directPointerDown);
+$('shirtStage').addEventListener('pointermove',directPointerMove);
+$('shirtStage').addEventListener('pointerup',directPointerUp);
+$('shirtStage').addEventListener('pointercancel',directPointerUp);
+$('designRotation')?.addEventListener('input',e=>{if(!directSelected)return;directState()[directKey(directSelected)+'Rotation']=Number(e.target.value);updateLogoPreview();saveMockupSide()});
+$('logoScale').addEventListener('input',e=>{const s=directState();s.imageScale=Number(e.target.value);if(directSelected)s[directKey(directSelected)+'Scale']=Number(e.target.value);updateLogoPreview()});
+$('logoUpload').addEventListener('change',()=>{setTimeout(()=>{const p=$('logoPreview');if(p.dataset.loaded){const s=directState();s.imageX=s.imageX??50;s.imageY=s.imageY??39;s.imageScale=Number($('logoScale').value||55);updateLogoPreview()}},0)});
+const originalClearLogo=clearLogo;
+clearLogo=function(){originalClearLogo();const s=directState();s.image='';s.text='';s.imageX=50;s.imageY=activeMockupSide==='back'?30:39;s.textX=50;s.textY=activeMockupSide==='back'?30:39;s.imageRotation=0;s.textRotation=0;updateLogoPreview()};
+
 </script></body></html>
