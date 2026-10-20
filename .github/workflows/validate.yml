@@ -14,3 +14,5 @@ jobs:
           node-version: 22
       - name: Validate HTML and inline JavaScript
         run: node scripts/validate-html.mjs
+      - name: Validate OpenAI Netlify function syntax
+        run: node --check netlify/functions/design-assistant.mjs
