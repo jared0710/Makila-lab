@@ -245,12 +245,26 @@ aiForm.addEventListener('submit',async event=>{
  addAiMessage(prompt,'user');aiPrompt.value='';aiSend.disabled=true;aiStatus.classList.remove('error');aiStatus.textContent='Interpretando tu diseño…';aiApplied.textContent='';
  try{
   const current={kind:$('kind').value,color:$('color').value,cut:$('cut').value,printText:$('printText').value,placement:$('previewPlacement').value,fabric:$('fabric').value,sleeve:$('sleeve').value,neckline:$('neckline').value};
-  const response=await fetch('/.netlify/functions/design-assistant',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,design:current})});
-  const data=await response.json().catch(()=>({}));
-  if(!response.ok)throw new Error(data.error||'No se pudo conectar con el asistente.');
-  if(!data.design)throw new Error('La respuesta no incluyó cambios de diseño válidos.');
-  applyAiDesign(data.design);addAiMessage(data.reply||'Actualicé la propuesta de tu playera. Revisa la vista previa.','bot');aiStatus.textContent='Listo. Puedes seguir pidiendo ajustes o guardar el borrador.';
- }catch(error){aiStatus.classList.add('error');aiStatus.textContent=error.message||'No se pudo conectar. Revisa la configuración del servidor e inténtalo de nuevo.';addAiMessage('No pude aplicar los cambios esta vez. Puedes seguir usando los controles manuales mientras configuramos la conexión.','bot')}
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),25000);
+  let response,data;
+  try{
+   response=await fetch('/.netlify/functions/design-assistant',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({message:prompt,design:current}),signal:controller.signal});
+   data=await response.json().catch(()=>({}));
+  }finally{clearTimeout(timeout)}
+  if(!response.ok){
+   if(response.status===404||response.status===405)throw new Error('La función de IA no está publicada en este sitio. Despliega la rama feature/openai-shirt-assistant en Netlify.');
+   throw new Error(data.error||('El asistente respondió con el error '+response.status+'.'));
+  }
+  if(!data.design||typeof data.reply!=='string')throw new Error('El servidor respondió, pero no devolvió un diseño válido. Revisa la función de Netlify.');
+  applyAiDesign(data.design);
+  addAiMessage(data.reply||'Actualicé la propuesta de tu playera. Revisa la vista previa.','bot');
+  aiStatus.classList.remove('error');aiStatus.textContent='Listo. La vista previa se actualizó; revisa el diseño antes de guardarlo.';
+ }catch(error){
+  aiStatus.classList.add('error');
+  const message=error.name==='AbortError'?'La solicitud tardó demasiado. Inténtalo de nuevo.':(error.message||'No se pudo conectar con el asistente.');
+  aiStatus.textContent=message;addAiMessage(message,'bot');
+ }
  finally{aiSend.disabled=false;aiPrompt.focus()}
 });
 
