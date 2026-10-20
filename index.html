@@ -165,8 +165,15 @@ function updateLogoPreview(){
  const positions={center:{x:50,y:39},left:{x:43,y:39},right:{x:57,y:39},upper:{x:50,y:28},lower:{x:50,y:55}};
  const base=positions[$('previewPlacement').value]||positions.center;
  const pos={x:base.x,y:Math.max(20,Math.min(78,base.y+(y-48)))};
- image.style.left=pos.x+'%';image.style.top=pos.y+'%';image.style.width=scale+'%';
- text.style.left=pos.x+'%';text.style.top=pos.y+'%';text.style.maxWidth=scale+'%';
+ const state=directState?directState():null;
+ const imageScale=state&&Number.isFinite(Number(state.imageScale))?Number(state.imageScale):scale;
+ const imageX=state&&Number.isFinite(Number(state.imageX))?Number(state.imageX):pos.x;
+ const imageY=state&&Number.isFinite(Number(state.imageY))?Number(state.imageY):pos.y;
+ const textScale=state&&Number.isFinite(Number(state.textScale))?Number(state.textScale):scale;
+ const textX=state&&Number.isFinite(Number(state.textX))?Number(state.textX):pos.x;
+ const textY=state&&Number.isFinite(Number(state.textY))?Number(state.textY):pos.y;
+ image.style.left=imageX+'%';image.style.top=imageY+'%';image.style.width=imageScale+'%';
+ text.style.left=textX+'%';text.style.top=textY+'%';text.style.maxWidth=textScale+'%';
  image.classList.toggle('hide',!image.dataset.loaded);
  const value=$('printText').value.trim();text.textContent=value;text.classList.toggle('hide',!value);
 }
