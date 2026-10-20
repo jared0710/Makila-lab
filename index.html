@@ -143,6 +143,7 @@ function applyAiDesign(result){
 aiForm.addEventListener('submit',async event=>{
  event.preventDefault();
  const prompt=aiPrompt.value.trim();if(!prompt)return;
+ if($('kind').value!=='Playeras'){aiStatus.classList.add('error');aiStatus.textContent='En esta primera versión, Diseña con IA funciona solo con playeras. Selecciona “Playeras” para continuar.';return}
  addAiMessage(prompt,'user');aiPrompt.value='';aiSend.disabled=true;aiStatus.classList.remove('error');aiStatus.textContent='Interpretando tu diseño…';aiApplied.textContent='';
  try{
   const current={kind:$('kind').value,color:$('color').value,cut:$('cut').value,printText:$('printText').value,placement:$('previewPlacement').value,fabric:$('fabric').value,sleeve:$('sleeve').value,neckline:$('neckline').value};
