@@ -84,8 +84,31 @@ export default async (request) => {
 
     const data = await upstream.json().catch(() => ({}));
     if (!upstream.ok) {
-      console.error("OpenAI Responses API error", upstream.status, data?.error?.code || "unknown");
-      return json({ error: upstream.status === 429 ? "Se alcanzó un límite de uso. Inténtalo más tarde." : "OpenAI no pudo procesar la solicitud. Inténtalo de nuevo." }, 502);
+      const code = data?.error?.code || data?.error?.type || "unknown";
+      console.error("OpenAI Responses API error", upstream.status, code);
+
+      let message = "El servicio de IA no pudo procesar la solicitud. Inténtalo de nuevo.";
+      let status = 502;
+      if (upstream.status === 429 && (code === "insufficient_quota" || code === "billing_hard_limit_reached")) {
+        message = "La cuenta de OpenAI alcanzó su límite de uso o no tiene saldo disponible. Revisa la facturación y los límites de uso de OpenAI.";
+        status = 429;
+      } else if (upstream.status === 429) {
+        message = "El asistente recibió demasiadas solicitudes. Espera un minuto y vuelve a intentarlo.";
+        status = 429;
+      } else if (upstream.status === 401) {
+        message = "La clave de OpenAI no es válida o fue revocada. Revisa OPENAI_API_KEY en la configuración de Netlify.";
+        status = 503;
+      } else if (upstream.status === 403) {
+        message = "La cuenta o el proyecto de OpenAI no tiene permiso para realizar esta solicitud. Revisa sus permisos y el modelo configurado.";
+        status = 503;
+      } else if (upstream.status === 404) {
+        message = "El modelo de IA configurado no está disponible. Revisa OPENAI_MODEL en Netlify.";
+        status = 503;
+      } else if (upstream.status >= 500) {
+        message = "El servicio de IA está temporalmente fuera de servicio. Espera un momento y vuelve a intentarlo.";
+        status = 503;
+      }
+      return json({ error: message }, status);
     }
 
     let output = data.output_text;
