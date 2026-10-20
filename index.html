@@ -127,7 +127,7 @@ const directSideState={
 };
 let directPointers=new Map(), directGesture=null, directSelected=null;
 
-const $=id=>document.getElementById(id);const $=selector=>document.querySelectorAll(selector);let drafts=[];let selectedColor='Negro',selectedMaterial='Algodón';
+const $=id=>document.getElementById(id);let drafts=[];let selectedColor='Negro',selectedMaterial='Algodón';
 try{drafts=JSON.parse(localStorage.getItem('makilaLabDrafts')||'[]')}catch(e){drafts=[]}
 function show(id,updateHistory=true){const target=$(id);if(!target||!target.matches('main>section'))return;document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('active',s===target));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(updateHistory&&location.hash!=='#'+id)history.pushState({page:id},'', '#'+id);window.scrollTo({top:0,behavior:'smooth'});if(id==='quotes'||id==='projects')renderDrafts()}window.addEventListener('popstate',()=>{const id=location.hash.slice(1);show(id&&$(id)?id:'home',false)});window.addEventListener('DOMContentLoaded',()=>{const id=location.hash.slice(1);if(id&&$(id))show(id,false);else show('home',false)});
 const garmentImages={
