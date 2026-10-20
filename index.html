@@ -15,7 +15,23 @@
 #shirtStage{touch-action:pan-y}
 .drag-help{font-size:11px;line-height:1.5;color:#d7c08e;margin:8px 0}
 
-.color-picker-field input[type="color"]::-webkit-color-swatch-wrapper{padding:2px}.color-picker-field input[type="color"]::-webkit-color-swatch{border:0;border-radius:5px}</style></head>
+.color-picker-field input[type="color"]::-webkit-color-swatch-wrapper{padding:2px}.color-picker-field input[type="color"]::-webkit-color-swatch{border:0;border-radius:5px}
+/* Simulación visual de técnicas de estampado y bordado */
+.realistic-stage.tech-embroidery .logo-text-preview{
+ background:repeating-linear-gradient(135deg,#ffffff18 0 1px,#00000016 1px 2px),#00000018;
+ border:1px dashed currentColor;border-radius:2px;
+ text-shadow:1px 1px 0 #0008,-1px -1px 0 #fff4,2px 2px 1px #0008;
+ -webkit-text-stroke:.25px currentColor;letter-spacing:1.4px;
+}
+.realistic-stage.tech-embroidery .logo-overlay{
+ filter:drop-shadow(0 1px 0 #fff5) drop-shadow(1px 1px 0 #0009) drop-shadow(-1px -1px 0 #fff3) saturate(.85) contrast(1.08);
+}
+.realistic-stage.tech-screen .logo-text-preview{background:transparent;text-shadow:none;border-radius:0;letter-spacing:.7px}
+.realistic-stage.tech-dtf .logo-text-preview{background:transparent;text-shadow:0 0 1px currentColor;border-radius:0}
+.realistic-stage.tech-dtg .logo-text-preview{background:transparent;text-shadow:0 1px 1px #0005;filter:saturate(.82);border-radius:0}
+.realistic-stage.tech-vinyl .logo-text-preview{background:transparent;text-shadow:0 1px 0 #fff5,0 2px 2px #0008;border-radius:0;letter-spacing:1px}
+.realistic-stage.tech-none .logo-text-preview{background:transparent;text-shadow:none;border-radius:0}
+</style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
 <section id="home" class="active">
@@ -50,7 +66,8 @@
 <img id="logoPreview" class="logo-overlay hide" alt="Vista previa del logo">
 <div id="logoTextPreview" class="logo-text-preview hide"></div>
 </div>
-<div class="designer-tools"><h3 id="garmentToolsTitle" style="margin:0 0 8px;color:var(--gold2);font-size:15px">Personaliza tu playera</h3><div class="field"><label for="logoUpload">Sube tu logo o imagen (desde Fotos/Archivos)</label><label class="upload-label" for="logoUpload">＋ Elegir imagen</label><input id="logoUpload" type="file" accept="image/*" class="hide"><small id="uploadStatus" style="color:#aaa">PNG o JPG recomendado. La imagen solo se usa en esta vista previa.</small></div><div class="field"><label for="previewPlacement">Ubicación visual del logo</label><select id="previewPlacement"><option value="center">Centro del pecho</option><option value="left">Pecho izquierdo</option><option value="right">Pecho derecho</option><option value="upper">Espalda alta / zona superior</option><option value="lower">Zona inferior</option></select><small style="color:#999;font-size:10px">La posición es una referencia visual; confirma la ubicación final con la maquila.</small></div><div class="field"><label for="printText">Texto para estampar</label><input id="printText" maxlength="32" placeholder="Ej. MAKILA LAB"></div><div class="formgrid"><div class="field"><label for="logoScale">Tamaño del logo</label><input id="logoScale" type="range" min="20" max="100" value="55"></div><div class="field"><label for="logoY">Altura del logo</label><input id="logoY" type="range" min="25" max="75" value="48"></div></div><div class="field"><label for="designRotation">Rotación del elemento seleccionado</label><input id="designRotation" type="range" min="-180" max="180" value="0"><small style="color:#999">También puedes mover el logo o texto directamente con el dedo.</small></div><button type="button" class="material" onclick="clearLogo()">Quitar logo/texto</button></div>
+<div class="designer-tools"><h3 id="garmentToolsTitle" style="margin:0 0 8px;color:var(--gold2);font-size:15px">Personaliza tu playera</h3><div class="field"><label for="logoUpload">Sube tu logo o imagen (desde Fotos/Archivos)</label><label class="upload-label" for="logoUpload">＋ Elegir imagen</label><input id="logoUpload" type="file" accept="image/*" class="hide"><small id="uploadStatus" style="color:#aaa">PNG o JPG recomendado. La imagen solo se usa en esta vista previa.</small></div><div class="field"><label for="previewPlacement">Ubicación visual del logo</label><select id="previewPlacement"><option value="center">Centro del pecho</option><option value="left">Pecho izquierdo</option><option value="right">Pecho derecho</option><option value="upper">Espalda alta / zona superior</option><option value="lower">Zona inferior</option></select><small style="color:#999;font-size:10px">La posición es una referencia visual; confirma la ubicación final con la maquila.</small></div><div class="field"><label for="printText">Texto o letras del diseño</label><input id="printText" maxlength="32" placeholder="Ej. MAKILA LAB"></div>
+<div class="field"><label for="visualTechnique">Técnica de personalización · vista previa</label><select id="visualTechnique"><option value="dtf">DTF · estampado liso</option><option value="screen">Serigrafía</option><option value="dtg">Impresión directa (DTG)</option><option value="embroidery">Bordado</option><option value="vinyl">Vinil textil</option><option value="none">Sin efecto especial</option></select><small style="color:#999;font-size:10px">La vista simula el aspecto de cada técnica; el resultado real depende del taller y los materiales.</small></div><div class="formgrid"><div class="field"><label for="logoScale">Tamaño del logo</label><input id="logoScale" type="range" min="20" max="100" value="55"></div><div class="field"><label for="logoY">Altura del logo</label><input id="logoY" type="range" min="25" max="75" value="48"></div></div><div class="field"><label for="designRotation">Rotación del elemento seleccionado</label><input id="designRotation" type="range" min="-180" max="180" value="0"><small style="color:#999">También puedes mover el logo o texto directamente con el dedo.</small></div><button type="button" class="material" onclick="clearLogo()">Quitar logo/texto</button></div>
 <div class="field"><label for="garmentColorPicker">COLOR DE LA PRENDA</label>
 <div class="colorrow" id="presetColorRow">
 <button class="swatch" style="background:#202020" aria-label="Negro" aria-pressed="true" onclick="setColor('Negro',this)"></button>
@@ -224,6 +241,18 @@ aiForm.addEventListener('submit',async event=>{
 });
 
 renderDrafts();
+function applyVisualTechnique(){
+ const stage=$('shirtStage'),tech=$('visualTechnique')?.value||'dtf';
+ stage.classList.remove('tech-embroidery','tech-screen','tech-dtf','tech-vinyl','tech-none');
+ stage.classList.add('tech-'+tech);
+ const labels={dtf:'DTF · ESTAMPADO',screen:'SERIGRAFÍA',dtg:'DTG · IMPRESIÓN DIRECTA',embroidery:'BORDADO · SIMULACIÓN',vinyl:'VINIL TEXTIL',none:'SIN EFECTO ESPECIAL'};
+ stage.dataset.technique=tech;
+ const badge=$('shirtBadge');
+ if(badge){const kind=$('kind').value;badge.textContent='VISTA PREVIA · '+kind.toUpperCase()+' · '+($('color').value||'').toUpperCase()+' · '+labels[tech];}
+}
+$('visualTechnique').addEventListener('change',applyVisualTechnique);
+
+applyVisualTechnique();
 
 /* MAKILA LAB: manipulación directa de estampados */
 $('previewPlacement').closest('.field').classList.add('hide');
