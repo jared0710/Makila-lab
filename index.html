@@ -259,7 +259,7 @@ $('visualTechnique').addEventListener('change',applyVisualTechnique);
 
 applyVisualTechnique();
 
-/* MAKILA LAB: manipulación directa de estampados */
+/* Gestos táctiles para mover y pellizcar el diseño */\n#logoPreview,#logoTextPreview{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}\n/* MAKILA LAB: manipulación directa de estampados */
 $('previewPlacement').closest('.field').classList.add('hide');
 $('logoY').closest('.field').classList.add('hide');
 function directState(){return directSideState[activeMockupSide]||directSideState.front}
@@ -290,9 +290,21 @@ function loadMockupSide(){
 }
 function directPointerDown(e){
  const el=e.target.closest('#logoPreview,#logoTextPreview');if(!el||el.classList.contains('hide'))return;
- e.preventDefault();directSelected=el;directPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});el.setPointerCapture(e.pointerId);
+ e.preventDefault();
  const s=directState(),k=directKey(el),rect=$('shirtStage').getBoundingClientRect();
- directGesture={key:k,startX:e.clientX,startY:e.clientY,x:Number(s[k+'X']),y:Number(s[k+'Y']),scale:Number(s[k+'Scale']||55),rotation:Number(s[k+'Rotation']||0),rect};
+ if(directPointers.size===0){
+  directSelected=el;
+  directGesture={key:k,startX:e.clientX,startY:e.clientY,x:Number(s[k+'X']??50),y:Number(s[k+'Y']??40),scale:Number(s[k+'Scale']||s[k+'ImageScale']||s.imageScale||55),rotation:Number(s[k+'Rotation']||0),rect};
+ }else if(directSelected!==el||!directGesture||directGesture.key!==k){
+  return;
+ }
+ directPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ try{el.setPointerCapture(e.pointerId)}catch(_){}
+ if(directPointers.size===2){
+  const pts=[...directPointers.values()];
+  directGesture.pinchStartDist=Math.max(1,Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y));
+  directGesture.pinchStartScale=Number(directState()[k+'Scale']||directState().imageScale||55);
+ }
  $('shirtStage').querySelectorAll('.logo-overlay,.logo-text-preview').forEach(n=>n.style.outline='');
  el.style.outline='1px dashed #e9bd63';
  if($('designRotation'))$('designRotation').value=s[k+'Rotation']||0;
@@ -303,19 +315,25 @@ function directPointerMove(e){
  const s=directState(),g=directGesture,k=g.key;
  if(directPointers.size>=2){
   const pts=[...directPointers.values()],dist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
-  if(g.lastDist&&dist){s[k+'Scale']=Math.max(8,Math.min(90,g.scale*dist/g.lastDist));}
-  g.lastDist=dist;
+  if(g.pinchStartDist)s[k+'Scale']=Math.max(5,Math.min(100,g.pinchStartScale*dist/g.pinchStartDist));
  }else{
   s[k+'X']=Math.max(3,Math.min(97,g.x+(e.clientX-g.startX)/g.rect.width*100));
   s[k+'Y']=Math.max(3,Math.min(97,g.y+(e.clientY-g.startY)/g.rect.height*100));
  }
  updateLogoPreview();
 }
-function directPointerUp(e){directPointers.delete(e.pointerId);if(!directPointers.size){directGesture=null;saveMockupSide()}}
-$('shirtStage').addEventListener('pointerdown',directPointerDown);
-$('shirtStage').addEventListener('pointermove',directPointerMove);
-$('shirtStage').addEventListener('pointerup',directPointerUp);
-$('shirtStage').addEventListener('pointercancel',directPointerUp);
+function directPointerUp(e){
+ directPointers.delete(e.pointerId);
+ if(directPointers.size===1&&directGesture){
+  const remaining=[...directPointers.values()][0];
+  directGesture.startX=remaining.x;directGesture.startY=remaining.y;
+  directGesture.x=Number(directState()[directGesture.key+'X']??50);
+  directGesture.y=Number(directState()[directGesture.key+'Y']??40);
+  directGesture.rect=$('shirtStage').getBoundingClientRect();
+  directGesture.pinchStartDist=null;
+ }
+ if(!directPointers.size){directGesture=null;saveMockupSide()}
+}
 $('designRotation')?.addEventListener('input',e=>{if(!directSelected)return;directState()[directKey(directSelected)+'Rotation']=Number(e.target.value);updateLogoPreview();saveMockupSide()});
 $('logoScale').addEventListener('input',e=>{const s=directState(),value=Number(e.target.value),image=$('logoPreview');s.imageScale=value;if(directSelected&&directKey(directSelected)==='text')s.textScale=value;updateLogoPreview();saveMockupSide()});
 $('logoUpload').addEventListener('change',()=>{setTimeout(()=>{const p=$('logoPreview');if(p.dataset.loaded){const s=directState();s.imageX=s.imageX??50;s.imageY=s.imageY??39;s.imageScale=Number($('logoScale').value||55);updateLogoPreview()}},0)});
