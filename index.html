@@ -36,6 +36,8 @@
 .realistic-stage.tech-dtg .logo-text-preview{background:transparent;text-shadow:0 1px 1px #0005;filter:saturate(.82);border-radius:0}
 .realistic-stage.tech-vinyl .logo-text-preview{background:transparent;text-shadow:0 1px 0 #fff5,0 2px 2px #0008;border-radius:0;letter-spacing:1px}
 .realistic-stage.tech-none .logo-text-preview{background:transparent;text-shadow:none;border-radius:0}
+/* Gestos táctiles para mover y pellizcar el diseño */
+#logoPreview,#logoTextPreview{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
@@ -266,7 +268,7 @@ $('visualTechnique').addEventListener('change',applyVisualTechnique);
 
 applyVisualTechnique();
 
-/* Gestos táctiles para mover y pellizcar el diseño */\n#logoPreview,#logoTextPreview{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}\n/* MAKILA LAB: manipulación directa de estampados */
+/* MAKILA LAB: manipulación directa de estampados */
 $('previewPlacement').closest('.field').classList.add('hide');
 $('logoY').closest('.field').classList.add('hide');
 function directState(){return directSideState[activeMockupSide]||directSideState.front}
