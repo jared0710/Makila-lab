@@ -298,36 +298,50 @@ function loadMockupSide(){
  updateLogoPreview();
 }
 function directPointerDown(e){
- const el=e.target.closest('#logoPreview,#logoTextPreview');if(!el||el.classList.contains('hide'))return;
- e.preventDefault();
- const s=directState(),k=directKey(el),rect=$('shirtStage').getBoundingClientRect();
+ const stage=$('shirtStage');
+ if(!stage || !stage.contains(e.target))return;
+ let el=e.target.closest('#logoPreview,#logoTextPreview');
+ // Al iniciar el segundo toque, conservar la selección aunque el dedo caiga
+ // sobre otra zona de la misma área de diseño.
+ if(!el && directPointers.size===1 && directSelected && stage.contains(directSelected))el=directSelected;
+ if(!el || el.classList.contains('hide'))return;
  if(directPointers.size===0){
   directSelected=el;
-  directGesture={key:k,startX:e.clientX,startY:e.clientY,x:Number(s[k+'X']??50),y:Number(s[k+'Y']??40),scale:Number(s[k+'Scale']||s[k+'ImageScale']||s.imageScale||55),rotation:Number(s[k+'Rotation']||0),rect};
- }else if(directSelected!==el||!directGesture||directGesture.key!==k){
+  const k=directKey(el),s=directState(),rect=stage.getBoundingClientRect();
+  directGesture={key:k,startX:e.clientX,startY:e.clientY,x:Number(s[k+'X']??50),y:Number(s[k+'Y']??40),scale:Number(s[k+'Scale']||s.imageScale||55),rotation:Number(s[k+'Rotation']||0),rect,pinchStartDist:null};
+ }else if(directSelected!==el || !directGesture || directGesture.key!==directKey(el)){
   return;
  }
+ e.preventDefault();
  directPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
- try{el.setPointerCapture(e.pointerId)}catch(_){}
+ try{stage.setPointerCapture(e.pointerId)}catch(_){}
  if(directPointers.size===2){
   const pts=[...directPointers.values()];
   directGesture.pinchStartDist=Math.max(1,Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y));
-  directGesture.pinchStartScale=Number(directState()[k+'Scale']||directState().imageScale||55);
+  const state=directState(),k=directGesture.key;
+  directGesture.pinchStartScale=Number(state[k+'Scale']||state.imageScale||55);
  }
- $('shirtStage').querySelectorAll('.logo-overlay,.logo-text-preview').forEach(n=>n.style.outline='');
+ stage.querySelectorAll('.logo-overlay,.logo-text-preview').forEach(n=>n.style.outline='');
  el.style.outline='1px dashed #e9bd63';
- if($('designRotation'))$('designRotation').value=s[k+'Rotation']||0;
+ if($('designRotation'))$('designRotation').value=directState()[directKey(el)+'Rotation']||0;
 }
 function directPointerMove(e){
  if(!directPointers.has(e.pointerId)||!directGesture||!directSelected)return;
+ e.preventDefault();
  directPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
- const s=directState(),g=directGesture,k=g.key;
+ const state=directState(),g=directGesture,k=g.key;
  if(directPointers.size>=2){
-  const pts=[...directPointers.values()],dist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
-  if(g.pinchStartDist){const next=Math.max(5,Math.min(100,g.pinchStartScale*dist/g.pinchStartDist));s[k+'Scale']=next;if(k==='image')s.imageScale=next;}
+  const pts=[...directPointers.values()];
+  const dist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
+  if(g.pinchStartDist){
+   const next=Math.max(5,Math.min(100,g.pinchStartScale*dist/g.pinchStartDist));
+   state[k+'Scale']=next;
+   if(k==='image')state.imageScale=next;
+   else state.textScale=next;
+  }
  }else{
-  s[k+'X']=Math.max(3,Math.min(97,g.x+(e.clientX-g.startX)/g.rect.width*100));
-  s[k+'Y']=Math.max(3,Math.min(97,g.y+(e.clientY-g.startY)/g.rect.height*100));
+  state[k+'X']=Math.max(3,Math.min(97,g.x+(e.clientX-g.startX)/g.rect.width*100));
+  state[k+'Y']=Math.max(3,Math.min(97,g.y+(e.clientY-g.startY)/g.rect.height*100));
  }
  updateLogoPreview();
 }
@@ -336,8 +350,8 @@ function directPointerUp(e){
  if(directPointers.size===1&&directGesture){
   const remaining=[...directPointers.values()][0];
   directGesture.startX=remaining.x;directGesture.startY=remaining.y;
-  directGesture.x=Number(directState()[directGesture.key+'X']??50);
-  directGesture.y=Number(directState()[directGesture.key+'Y']??40);
+  const state=directState(),k=directGesture.key;
+  directGesture.x=Number(state[k+'X']??50);directGesture.y=Number(state[k+'Y']??40);
   directGesture.rect=$('shirtStage').getBoundingClientRect();
   directGesture.pinchStartDist=null;
  }
