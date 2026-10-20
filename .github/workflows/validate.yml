@@ -1,7 +1,7 @@
 name: Validate MAKILA LAB
 on:
   push:
-    branches: [main]
+    branches: [main, feature/openai-shirt-assistant]
   pull_request:
     branches: [main]
 jobs:
