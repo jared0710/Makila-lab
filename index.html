@@ -91,6 +91,12 @@
 <nav class="nav" aria-label="Navegación"><button class="active" data-page="home" onclick="show('home')"><span>⌂</span>Inicio</button><button data-page="design" onclick="show('design')"><span>✎</span>Diseñar</button><button data-page="quotes" onclick="show('quotes')"><span>▤</span>Cotizar</button><button data-page="projects" onclick="show('projects')"><span>▱</span>Proyectos</button><button data-page="profile" onclick="show('profile')"><span>♙</span>Perfil</button></nav>
 </main>
 <script>
+const directSideState={
+ front:{imageX:50,imageY:39,textX:50,textY:39,imageRotation:0,textRotation:0,imageScale:55,textScale:55},
+ back:{imageX:50,imageY:30,textX:50,textY:30,imageRotation:0,textRotation:0,imageScale:55,textScale:55}
+};
+let directPointers=new Map(), directGesture=null, directSelected=null;
+
 const $=id=>document.getElementById(id);const $=selector=>document.querySelectorAll(selector);let drafts=[];let selectedColor='Negro',selectedMaterial='Algodón';
 try{drafts=JSON.parse(localStorage.getItem('makilaLabDrafts')||'[]')}catch(e){drafts=[]}
 function show(id){document.querySelectorAll('main>section').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='quotes'||id==='projects')renderDrafts()}
@@ -212,11 +218,6 @@ aiForm.addEventListener('submit',async event=>{
 renderDrafts();
 
 /* MAKILA LAB: manipulación directa de estampados */
-const directSideState={
- front:{imageX:50,imageY:39,textX:50,textY:39,imageRotation:0,textRotation:0,imageScale:55,textScale:55},
- back:{imageX:50,imageY:30,textX:50,textY:30,imageRotation:0,textRotation:0,imageScale:55,textScale:55}
-};
-let directPointers=new Map(), directGesture=null, directSelected=null;
 function directState(){return directSideState[activeMockupSide]||directSideState.front}
 function directKey(el){return el.id==='logoPreview'?'image':'text'}
 function directPosition(el){const s=directState(),k=directKey(el);return {x:s[k+'X'],y:s[k+'Y'],rotation:s[k+'Rotation'],scale:s[k+'Scale']}}
