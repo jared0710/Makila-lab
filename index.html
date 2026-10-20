@@ -149,9 +149,21 @@ function updateGarmentPreview(){
     'Pantalones':'M83 26 L217 26 L208 132 L197 272 L151 272 L145 145 L138 272 L92 272 L92 132 Z',
     'Gorras':'M73 105 Q76 43 147 40 Q211 41 225 101 L226 117 Q150 99 73 120 Z'
   };
-  if(shape){shape.setAttribute('fill',colors[$('color').value]||(/^#[0-9a-f]{6}$/i.test($('color').value)?$('color').value:'#737373'));shape.setAttribute('d',silhouettes[kind]||silhouettes['Playeras']);}
+  const shirtCuts={
+    'Oversize':'M91 34 L124 20 Q150 45 176 20 L209 34 L270 74 L238 132 L211 113 L218 270 Q150 286 82 270 L89 113 L62 132 L30 74 Z',
+    'Boxy fit':'M96 34 L126 23 Q150 47 174 23 L204 34 L259 68 L230 120 L201 103 L205 264 L95 264 L99 103 L70 120 L41 68 Z',
+    'Relaxed fit':'M96 34 L126 23 Q150 47 174 23 L204 34 L263 70 L233 124 L201 103 L207 266 Q150 280 93 266 L99 103 L67 124 L37 70 Z',
+    'Slim fit':'M108 34 L129 24 Q150 44 171 24 L192 34 L235 68 L213 111 L190 99 L194 263 Q150 274 106 263 L110 99 L87 111 L65 68 Z',
+    'Entallado':'M108 34 L129 24 Q150 44 171 24 L192 34 L235 68 L213 111 L190 99 L194 263 Q150 274 106 263 L110 99 L87 111 L65 68 Z',
+    'Crop top':'M99 34 L126 23 Q150 47 174 23 L201 34 L255 71 L228 119 L199 103 L201 207 Q150 220 99 207 L101 103 L72 119 L45 71 Z',
+    'Longline':'M99 34 L126 23 Q150 47 174 23 L201 34 L255 71 L228 119 L199 103 L204 286 Q150 296 96 286 L101 103 L72 119 L45 71 Z',
+    'Drop shoulder':'M88 36 L123 23 Q150 47 177 23 L212 36 L270 75 L237 132 L211 111 L216 264 Q150 280 84 264 L89 111 L63 132 L30 75 Z'
+  };
+  const selectedCut=$('cut')?.value||'Regular / clásico';
+  const garmentPath=kind==='Playeras'?(shirtCuts[selectedCut]||silhouettes[kind]):(silhouettes[kind]||silhouettes['Playeras']);
+  if(shape){shape.setAttribute('fill',colors[$('color').value]||(/^#[0-9a-f]{6}$/i.test($('color').value)?$('color').value:'#737373'));shape.setAttribute('d',garmentPath);}
   const tint=$('shirtTint');if(tint){const tintColors={'Negro':'#111111','Blanco':'#f4f0e8','Crema':'#d9c8a5','Azul marino':'#233c61','Rojo':'#a82f32','Verde olivo':'#667341','Otro':'#737373'};tint.style.background=tintColors[$('color').value]||(/^#[0-9a-f]{6}$/i.test($('color').value)?$('color').value:'#737373');tint.style.opacity='0';}
-  const shade=$('garmentShade');if(shade)shade.setAttribute('d',silhouettes[kind]||silhouettes['Playeras']);
+  const shade=$('garmentShade');if(shade)shade.setAttribute('d',garmentPath);
   const neck=$('neckDetail'),seams=$('seamDetail'),hem=$('hemDetail');
   if(neck){neck.style.display=kind==='Gorras'||kind==='Pantalones'?'none':'';neck.setAttribute('d',kind==='Chamarras'?'M127 23 Q150 51 173 23':'M126 24 Q150 66 174 24');}
   if(seams){seams.style.display=kind==='Gorras'?'none':'';const seamPaths={'Playeras':'M110 112 L110 251 M190 112 L190 251','Chamarras':'M150 38 L150 264 M106 111 L106 253 M194 111 L194 253','Pantalones':'M150 35 L148 137 L151 269 M138 146 L111 267 M162 146 L191 267','Gorras':'M150 43 L150 103'};seams.setAttribute('d',seamPaths[kind]||seamPaths['Playeras']);}
