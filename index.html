@@ -125,8 +125,8 @@ function updateGarmentPreview(){
     'Pantalones':'M83 26 L217 26 L208 132 L197 272 L151 272 L145 145 L138 272 L92 272 L92 132 Z',
     'Gorras':'M73 105 Q76 43 147 40 Q211 41 225 101 L226 117 Q150 99 73 120 Z'
   };
-  if(shape){shape.setAttribute('fill',colors[$('color').value]||'#737373');shape.setAttribute('d',silhouettes[kind]||silhouettes['Playeras']);}
-  const tint=$('shirtTint');if(tint){const tintColors={'Negro':'#111111','Blanco':'#f4f0e8','Crema':'#d9c8a5','Azul marino':'#233c61','Rojo':'#a82f32','Verde olivo':'#667341','Otro':'#737373'};tint.style.background=tintColors[$('color').value]||'#737373';tint.style.opacity=$('color').value==='Blanco'?'0.08':'0.48';}
+  if(shape){shape.setAttribute('fill',colors[$('color').value]||(/^#[0-9a-f]{6}$/i.test($('color').value)?$('color').value:'#737373'));shape.setAttribute('d',silhouettes[kind]||silhouettes['Playeras']);}
+  const tint=$('shirtTint');if(tint){const tintColors={'Negro':'#111111','Blanco':'#f4f0e8','Crema':'#d9c8a5','Azul marino':'#233c61','Rojo':'#a82f32','Verde olivo':'#667341','Otro':'#737373'};tint.style.background=tintColors[$('color').value]||(/^#[0-9a-f]{6}$/i.test($('color').value)?$('color').value:'#737373');tint.style.opacity=$('color').value==='Blanco'?'0.08':'0.48';}
   const shade=$('garmentShade');if(shade)shade.setAttribute('d',silhouettes[kind]||silhouettes['Playeras']);
   const neck=$('neckDetail'),seams=$('seamDetail'),hem=$('hemDetail');
   if(neck){neck.style.display=kind==='Gorras'||kind==='Pantalones'?'none':'';neck.setAttribute('d',kind==='Chamarras'?'M127 23 Q150 51 173 23':'M126 24 Q150 66 174 24');}
