@@ -15,7 +15,7 @@
 #shirtStage{touch-action:pan-y}
 .drag-help{font-size:11px;line-height:1.5;color:#d7c08e;margin:8px 0}
 
-</style></head>
+.color-picker-field input[type="color"]::-webkit-color-swatch-wrapper{padding:2px}.color-picker-field input[type="color"]::-webkit-color-swatch{border:0;border-radius:5px}</style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
 <section id="home" class="active">
@@ -51,7 +51,15 @@
 <div id="logoTextPreview" class="logo-text-preview hide"></div>
 </div>
 <div class="designer-tools"><h3 id="garmentToolsTitle" style="margin:0 0 8px;color:var(--gold2);font-size:15px">Personaliza tu playera</h3><div class="field"><label for="logoUpload">Sube tu logo o imagen (desde Fotos/Archivos)</label><label class="upload-label" for="logoUpload">＋ Elegir imagen</label><input id="logoUpload" type="file" accept="image/*" class="hide"><small id="uploadStatus" style="color:#aaa">PNG o JPG recomendado. La imagen solo se usa en esta vista previa.</small></div><div class="field"><label for="previewPlacement">Ubicación visual del logo</label><select id="previewPlacement"><option value="center">Centro del pecho</option><option value="left">Pecho izquierdo</option><option value="right">Pecho derecho</option><option value="upper">Espalda alta / zona superior</option><option value="lower">Zona inferior</option></select><small style="color:#999;font-size:10px">La posición es una referencia visual; confirma la ubicación final con la maquila.</small></div><div class="field"><label for="printText">Texto para estampar</label><input id="printText" maxlength="32" placeholder="Ej. MAKILA LAB"></div><div class="formgrid"><div class="field"><label for="logoScale">Tamaño del logo</label><input id="logoScale" type="range" min="20" max="100" value="55"></div><div class="field"><label for="logoY">Altura del logo</label><input id="logoY" type="range" min="25" max="75" value="48"></div></div><div class="field"><label for="designRotation">Rotación del elemento seleccionado</label><input id="designRotation" type="range" min="-180" max="180" value="0"><small style="color:#999">También puedes mover el logo o texto directamente con el dedo.</small></div><button type="button" class="material" onclick="clearLogo()">Quitar logo/texto</button></div>
-<div class="field"><label>COLOR DE REFERENCIA</label><div class="colorrow"><button class="swatch" aria-label="Negro" aria-pressed="true" onclick="setColor('Negro',this)"></button><button class="swatch white" aria-label="Blanco" aria-pressed="false" onclick="setColor('Blanco',this)"></button><button class="swatch blue" aria-label="Azul" aria-pressed="false" onclick="setColor('Azul marino',this)"></button><button class="swatch red" aria-label="Rojo" aria-pressed="false" onclick="setColor('Rojo',this)"></button><button class="swatch olive" aria-label="Verde olivo" aria-pressed="false" onclick="setColor('Verde olivo',this)"></button></div></div>
+<div class="field"><label for="garmentColorPicker">COLOR DE LA PRENDA</label>
+<div class="colorrow" id="presetColorRow">
+<button class="swatch" style="background:#202020" aria-label="Negro" aria-pressed="true" onclick="setColor('Negro',this)"></button>
+<button class="swatch" style="background:#f4f0e8" aria-label="Blanco" aria-pressed="false" onclick="setColor('Blanco',this)"></button>
+<button class="swatch" style="background:#233c61" aria-label="Azul marino" aria-pressed="false" onclick="setColor('Azul marino',this)"></button>
+<button class="swatch" style="background:#a82f32" aria-label="Rojo" aria-pressed="false" onclick="setColor('Rojo',this)"></button>
+<button class="swatch" style="background:#667341" aria-label="Verde olivo" aria-pressed="false" onclick="setColor('Verde olivo',this)"></button>
+</div>
+<div class="field color-picker-field"><label for="garmentColorPicker">Elige cualquier tono</label><div style="display:flex;gap:10px;align-items:center"><input id="garmentColorPicker" type="color" value="#202020" aria-label="Elegir color personalizado" style="width:62px;height:48px;padding:3px;background:#111;border:1px solid #6c542a;border-radius:8px;cursor:pointer"><span id="customColorValue" style="font-size:12px;color:#d9c18e">#202020 · Negro</span></div><small style="color:#999">Usa el selector de color para elegir un tono específico para la prenda.</small></div></div>
 <div class="field"><label>MATERIAL</label><div class="materials"><button class="material" aria-pressed="true" onclick="setMaterial('Algodón',this)">Algodón</button><button class="material" aria-pressed="false" onclick="setMaterial('Poliéster',this)">Poliéster</button><button class="material" aria-pressed="false" onclick="setMaterial('Mezclilla',this)">Mezclilla</button><button class="material" aria-pressed="false" onclick="setMaterial('Necesito recomendación',this)">Recomiéndame</button></div></div>
 <button class="fullbtn" onclick="show('design')">CREAR MI DISEÑO →</button></section>
 
@@ -279,5 +287,23 @@ $('logoScale').addEventListener('input',e=>{const s=directState();s.imageScale=N
 $('logoUpload').addEventListener('change',()=>{setTimeout(()=>{const p=$('logoPreview');if(p.dataset.loaded){const s=directState();s.imageX=s.imageX??50;s.imageY=s.imageY??39;s.imageScale=Number($('logoScale').value||55);updateLogoPreview()}},0)});
 const originalClearLogo=clearLogo;
 clearLogo=function(){originalClearLogo();const s=directState();s.image='';s.text='';s.imageX=50;s.imageY=activeMockupSide==='back'?30:39;s.textX=50;s.textY=activeMockupSide==='back'?30:39;s.imageRotation=0;s.textRotation=0;updateLogoPreview()};
+
+
+const customColorNames={'#000000':'Negro','#ffffff':'Blanco','#f4f0e8':'Blanco','#d9c8a5':'Crema','#233c61':'Azul marino','#a82f32':'Rojo','#667341':'Verde olivo','#202020':'Negro'};
+function applyCustomGarmentColor(hex){
+ const color=(hex||'#202020').toLowerCase();
+ $('color').value=color;
+ $('customColorValue').textContent=color.toUpperCase()+(customColorNames[color]?' · '+customColorNames[color]:' · Color personalizado');
+ document.querySelectorAll('#presetColorRow .swatch').forEach(b=>b.setAttribute('aria-pressed','false'));
+ updateGarmentPreview();
+}
+$('garmentColorPicker').addEventListener('input',e=>applyCustomGarmentColor(e.target.value));
+const presetSetColor=setColor;
+setColor=function(v,btn){
+ presetSetColor(v,btn);
+ const presets={'Negro':'#202020','Blanco':'#f4f0e8','Crema':'#d9c8a5','Azul marino':'#233c61','Rojo':'#a82f32','Verde olivo':'#667341','Otro':'#737373'};
+ if(presets[v])$('garmentColorPicker').value=presets[v];
+ $('customColorValue').textContent=(presets[v]||$('garmentColorPicker').value).toUpperCase()+' · '+v;
+};
 
 </script></body></html>
