@@ -92,8 +92,11 @@ export default async (request) => {
       if (upstream.status === 429 && (code === "insufficient_quota" || code === "billing_hard_limit_reached")) {
         message = "La cuenta de OpenAI alcanzó su límite de uso o no tiene saldo disponible. Revisa la facturación y los límites de uso de OpenAI.";
         status = 429;
+      } else if (upstream.status === 429 && code === "rate_limit_exceeded") {
+        message = "OpenAI alcanzó temporalmente su límite de solicitudes. Espera un minuto antes de volver a intentarlo.";
+        status = 429;
       } else if (upstream.status === 429) {
-        message = "El asistente recibió demasiadas solicitudes. Espera un minuto y vuelve a intentarlo.";
+        message = "OpenAI rechazó la solicitud por un límite de uso (429). Revisa Usage y Billing de la cuenta de API; si todo está correcto, espera un minuto y prueba una sola vez.";
         status = 429;
       } else if (upstream.status === 401) {
         message = "La clave de OpenAI no es válida o fue revocada. Revisa OPENAI_API_KEY en la configuración de Netlify.";
