@@ -69,6 +69,49 @@
 #designSpecifications .ai-form button{background:linear-gradient(100deg,#e5b653,#f8d987);color:#111;border:0;border-radius:8px;padding:12px;font-weight:900}
 #design>button.fullbtn{margin:16px 10px 0;width:calc(100% - 20px);min-height:58px;border:0;border-radius:10px;background:linear-gradient(100deg,#e5b653,#f8d987);color:#111;font-weight:900;letter-spacing:.5px}
 @media(min-width:760px){.app{max-width:1180px}#design .designer{padding:22px}#design .realistic-stage{min-height:560px}#design .realistic-stage #garmentSvg{height:520px;width:min(70%,440px)}#designSpecifications{max-width:920px;margin-left:auto;margin-right:auto}}
+
+/* Editor composition inspired by the approved MAKILA LAB reference */
+#design{max-width:1180px;margin:0 auto;padding:8px 12px 28px}
+#design>h2{font-size:22px;letter-spacing:.2px;margin:16px 8px 6px}
+#design>.sub{margin:0 8px 12px;color:#aaa;line-height:1.5;font-size:12px}
+#design .designer{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:0;padding:14px;border:1px solid #393024;border-radius:16px;background:#0a0a0a;overflow:visible}
+#design .designer>.eyebrow,#design .designer>h2,#design .designer>p{display:none}
+#design .mockup-controls{grid-row:1;grid-template-columns:repeat(2,minmax(0,1fr));margin:0}
+#design .realistic-stage{grid-row:2;min-height:360px;margin:0;background:radial-gradient(ellipse at 50% 35%,#39332a 0%,#171512 45%,#080808 82%);border:1px solid #302a21;border-radius:13px}
+#design .realistic-stage #garmentSvg{width:min(90%,340px);height:340px;filter:drop-shadow(0 20px 18px #000b)}
+#design .view-buttons{grid-row:3;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#design .view-buttons button{padding:10px 2px;font-size:9px;background:#121212;color:#ddd;border:1px solid #3a352c;border-radius:8px}
+#design .view-buttons button[aria-pressed="true"]{border-color:#e9bd63;color:#f6d58f;background:#282012}
+#design .zoom-control{grid-row:4;display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px}
+#design .zoom-control input{grid-column:1/-1}
+#design .designer-tools{grid-row:5;margin:0;padding:14px;border:1px solid #332b20;border-radius:12px;background:#101010}
+#design .designer-tools h3{font-size:16px!important}
+#design .designer-tools .field{margin:14px 0}
+#design .designer-tools input:not([type=range]):not([type=file]),#design .designer-tools select{width:100%;background:#171717;color:#f5f5f5;border:1px solid #49443b;border-radius:8px;padding:12px}
+#design .colorrow{display:flex;gap:13px;flex-wrap:wrap}
+#design .swatch{width:34px;height:34px;border:2px solid #777}
+#design .swatch[aria-pressed="true"]{outline:2px solid #e9bd63;outline-offset:3px}
+#design .materials{display:flex;gap:7px;flex-wrap:wrap}
+#design .materials .material{flex:1;min-width:90px}
+#design .ai-assistant{grid-row:6;padding:14px;border:1px solid #423522;border-radius:13px;background:linear-gradient(145deg,#181715,#090909)}
+#design .ai-assistant h3{color:#f6d58f;font-size:19px}
+#design .ai-form{display:flex;gap:7px;flex-wrap:wrap}
+#design .ai-form input{flex:1;min-width:0;background:#171717;color:white;border:1px solid #49443b;border-radius:8px;padding:12px}
+#design .ai-form button{background:linear-gradient(100deg,#e5b653,#f8d987);color:#111;border:0;border-radius:8px;padding:12px;font-weight:900}
+#design>button.fullbtn{display:block;width:100%;margin:14px 0 0;min-height:60px;background:linear-gradient(100deg,#e5b653,#f8d987);color:#111;border:0;border-radius:10px;font-weight:900;letter-spacing:.4px}
+#designSpecifications{margin:18px 0 0;padding:16px;border:1px solid #423522;border-radius:14px;background:#101010}
+#designSpecifications .ai-assistant{display:none}
+@media(min-width:900px){
+ #design .designer{grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);align-items:start;padding:18px;gap:14px}
+ #design .mockup-controls{grid-column:1;grid-row:1;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #design .realistic-stage{grid-column:1;grid-row:2 / span 2;min-height:590px}
+ #design .realistic-stage #garmentSvg{height:540px;width:min(80%,440px)}
+ #design .view-buttons{grid-column:1;grid-row:4}
+ #design .zoom-control{grid-column:1;grid-row:5}
+ #design .designer-tools{grid-column:2;grid-row:1 / span 4;position:relative}
+ #design .ai-assistant{grid-column:2;grid-row:5}
+ #design>button.fullbtn{max-width:520px;margin:16px auto 0}
+}
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
