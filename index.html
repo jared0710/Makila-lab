@@ -165,15 +165,51 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 #home .category img+span,#home .category .category-label{display:block}
 #home .category{color:#f5f0e7}
 @media(max-width:650px){#home .category img{height:185px;padding:8px}}
+/* Ajuste de portada: fotografía real en lugar de siluetas geométricas */
+#home .hero-apparel{height:310px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:12px;background:#080706;box-shadow:inset 0 0 50px #000}
+#home .hero-product-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:brightness(.58) contrast(1.12);mask-image:linear-gradient(90deg,transparent 0%,#000 18%,#000 86%,transparent 100%)}
+#home .apparel-piece{display:none!important}
+#home .category img{object-fit:cover;object-position:center;background:#100e0b;filter:grayscale(1) brightness(.7) contrast(1.1)}
+@media(max-width:650px){#home .hero-apparel{height:210px;margin-top:10px}#home .hero-product-photo{object-position:center 42%}}
+
+/* MAKILA LAB designer layout refinement: preview first on phones, three-panel workspace on desktop */
+@media(max-width:759px){
+ #design .designer{display:flex;flex-direction:column;gap:12px}
+ #design .designer>.eyebrow,#design .designer>h2,#design .designer>p{order:0}
+ #design .designer>.mockup-controls{order:1}
+ #design .designer>#shirtStage{order:2;min-height:390px}
+ #design .designer>.view-buttons{order:3}
+ #design .designer>.zoom-control{order:4}
+ #design .designer>.designer-tools{order:5}
+ #design .designer>.field:has(#garmentColorPicker){order:6}
+ #design .designer>.field:has(#garmentColorPicker)+.field{order:7}
+ #design .designer>.ai-assistant{order:8}
+ #design .designer>.fullbtn{order:9}
+}
+@media(min-width:760px){
+ #design .designer{display:grid;grid-template-columns:minmax(130px,170px) minmax(300px,1fr) minmax(280px,340px);align-items:start;gap:14px;padding:18px}
+ #design .designer>.eyebrow{grid-column:1/-1}
+ #design .designer>h2,#design .designer>p{grid-column:1/-1}
+ #design .designer>.mockup-controls{grid-column:3;grid-row:4;display:grid;grid-template-columns:1fr;}
+ #design .designer>#shirtStage{grid-column:2;grid-row:4 / span 3;min-height:540px;margin:0}
+ #design .designer>.view-buttons{grid-column:2;grid-row:7}
+ #design .designer>.zoom-control{grid-column:2;grid-row:8}
+ #design .designer>.designer-tools{grid-column:1;grid-row:4 / span 5;margin:0}
+ #design .designer>.field:has(#garmentColorPicker){grid-column:3;grid-row:5}
+ #design .designer>.field:has(#garmentColorPicker)+.field{grid-column:3;grid-row:6}
+ #design .designer>.ai-assistant{grid-column:3;grid-row:7 / span 2;margin:0}
+ #design .designer>.fullbtn{grid-column:3;grid-row:9;align-self:start}
+}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
 <section id="home" class="active">
-<div class="hero"><div class="hero-content"><div class="eyebrow">TU IDEA. TU ESTILO. SIN LÍMITES.</div><h1>DISEÑA <span>TU PROPIA ROPA</span></h1><p>Playeras, sudaderas, pantalones y gorras personalizadas con la mejor calidad.</p><div class="hero-features"><span>✦ DISEÑO PERSONALIZADO</span><span>◇ CONEXIÓN CON MAQUILAS</span><span>♧ MATERIALES DE CALIDAD</span></div></div><div class="hero-apparel" aria-label="Colección de prendas negras"><div class="apparel-piece apparel-hoodie"></div><div class="apparel-piece apparel-tee"></div><div class="apparel-piece apparel-pants"></div><div class="apparel-piece apparel-cap"></div></div></div>
+<div class="hero"><div class="hero-content"><div class="eyebrow">TU IDEA. TU ESTILO. SIN LÍMITES.</div><h1>DISEÑA <span>TU PROPIA ROPA</span></h1><p>Playeras, sudaderas, pantalones y gorras personalizadas con la mejor calidad.</p><div class="hero-features"><span>✦ DISEÑO PERSONALIZADO</span><span>◇ CONEXIÓN CON MAQUILAS</span><span>♧ MATERIALES DE CALIDAD</span></div></div><div class="hero-apparel" aria-label="Fotografía de prendas negras sin modelos"><img class="hero-product-photo" src="https://images.unsplash.com/photo-1499971442178-8c10fdf5f6ac?auto=format&fit=crop&w=1200&q=85" alt="Playera negra en perchero, sin personas" loading="eager"></div></div>
 <div class="section-head"><h2>Elige tu categoría</h2><small>DISEÑA TU COLECCIÓN</small></div>
 <div class="categories">
-<button class="category" onclick="choose('Playeras')"><img loading="lazy" alt="Playera básica" src="https://images.unsplash.com/photo-1633252919457-8bb63cfa02d7?auto=format&fit=crop&w=900&q=85"><b>PLAYERAS</b></button>
-<button class="category" onclick="choose('Sudaderas')"><img loading="lazy" alt="Sudadera" src="https://images.unsplash.com/photo-1529946825183-536c6317f60e?auto=format&fit=crop&w=900&q=85"><b>SUDADERAS</b></button>
+<button class="category" onclick="choose('Playeras')"><img loading="lazy" alt="Playera básica" src="https://images.unsplash.com/photo-1499971442178-8c10fdf5f6ac?auto=format&fit=crop&w=900&q=85"><b>PLAYERAS</b></button>
+<button class="category" onclick="choose('Sudaderas')"><img loading="lazy" alt="Sudadera" src="https://images.unsplash.com/photo-1630269470848-337134b23b06?auto=format&fit=crop&w=900&q=85"><b>SUDADERAS</b></button>
 <button class="category" onclick="choose('Pantalones')"><img loading="lazy" alt="Ropa y pantalones" src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=900&q=85"><b>PANTALONES</b></button>
 <button class="category" onclick="choose('Gorras')"><img loading="lazy" alt="Gorra" src="https://images.unsplash.com/photo-1557225451-b03ada84e645?auto=format&fit=crop&w=900&q=85"><b>GORRAS</b></button>
 </div>
@@ -324,7 +360,7 @@ $('logoUpload').addEventListener('change',e=>{const file=e.target.files&&e.targe
 $('shirtStage').querySelectorAll('.shirt-hotspot').forEach(node=>node.addEventListener('click',()=>{const value=node.dataset.placement;$('previewPlacement').value=value;$('previewPlacement').dispatchEvent(new Event('change'));}));
 $('printText').addEventListener('input',updateLogoPreview);$('logoScale').addEventListener('input',updateLogoPreview);$('logoY').addEventListener('input',updateLogoPreview);$('previewPlacement').addEventListener('change',()=>{const map={center:'Centro del pecho',left:'Pecho izquierdo',right:'Pecho derecho',upper:'Espalda alta',lower:'Etiqueta exterior'};$('logoPlacement').value=map[$('previewPlacement').value]||'Por definir';updateLogoPreview()});$('logoPlacement').addEventListener('change',()=>{const map={'Pecho izquierdo':'left','Centro del pecho':'center','Pecho derecho':'right','Espalda alta':'upper','Espalda completa':'upper','Manga':'right','Etiqueta exterior':'lower','Por definir':'center'};$('previewPlacement').value=map[$('logoPlacement').value]||'center';updateLogoPreview()});
 function showDesignSpecifications(){const box=$('designSpecifications');if(box)box.classList.remove('hide');box?.scrollIntoView({behavior:'smooth',block:'start'});}
-function choose(v){selectedCategory=v;const title=$('categoryDetailTitle');const desc=$('categoryDetailDescription');if(title)title.textContent=v.toUpperCase();if(desc)desc.textContent='Explora las opciones de '+v.toLowerCase()+', personaliza el color, el corte y el estampado, y prepara tu diseño para cotizar.';$('kind').value=v;updateGarmentPreview();show('categoryDetail')}
+function choose(v){selectedCategory=v;const title=$('categoryDetailTitle');const desc=$('categoryDetailDescription');if(title)title.textContent=v.toUpperCase();if(desc)desc.textContent='Personaliza '+v.toLowerCase()+', elige color y corte, agrega tu estampado y prepara la cotización.';const kind=$('kind');if(kind)kind.value=v;updateGarmentPreview();show('design')}
 let selectedCategory='Playeras';
 function startCategoryDesign(){$('kind').value=selectedCategory;updateGarmentPreview();show('design')}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
