@@ -864,3 +864,15 @@ setGarmentZoom(100);updateMockupControls();
 #home .category:has(img[src*="02_playeras.webp"]){background:#100d09!important;}
 @media(max-width:650px){#home .category img[src*="02_playeras.webp"]{height:245px!important;object-fit:cover!important;object-position:center 48%!important;transform:scale(1.12)!important;}}
 </style>
+
+<style id="makila-category-layout-balanced">
+/* Tarjetas equilibradas inspiradas en el nuevo diseño negro y dorado */
+#home .categories .category{overflow:hidden!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;}
+#home .categories .category img{display:block!important;width:100%!important;height:190px!important;max-height:190px!important;min-height:0!important;object-fit:cover!important;object-position:center 42%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important;transform:none!important;background:#100d09!important;}
+#home .categories .category b{display:block!important;text-align:center!important;padding:14px 6px 8px!important;}
+#home .categories .category .category-caption,#home .categories .category .category-action{display:none!important;}
+#home .categories .category img[src*="02_playeras.webp"]{height:190px!important;max-height:190px!important;object-position:center 45%!important;}
+#home .categories .category img[src*="03_sudaderas.webp"]{height:190px!important;max-height:190px!important;object-position:center 25%!important;}
+@media(min-width:651px){#home .categories .category img{height:260px!important;max-height:260px!important;}}
+@media(max-width:650px){#home .categories .category img{height:170px!important;max-height:170px!important;}#home .categories .category img[src*="02_playeras.webp"]{height:170px!important;max-height:170px!important;}#home .categories .category img[src*="03_sudaderas.webp"]{height:170px!important;max-height:170px!important;object-position:center 25%!important;}}
+</style>
