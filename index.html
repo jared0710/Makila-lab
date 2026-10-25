@@ -487,6 +487,19 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
   #design .zoom-control{gap:7px}
 }
 
+
+/* Presentación de playera: volumen de tela, costuras y silueta más cuidada */
+#design .realistic-stage #garmentSvg{overflow:visible;filter:drop-shadow(0 18px 16px #000a)}
+#design .realistic-stage #garmentShape{stroke:#080808;stroke-opacity:.82;stroke-width:1.8;stroke-linejoin:round}
+#design .realistic-stage #garmentShade{mix-blend-mode:soft-light;opacity:.95}
+#design .realistic-stage #fabricBody{pointer-events:none}
+#design .realistic-stage #neckDetail{stroke-width:7;stroke-linecap:round}
+#design .realistic-stage #seamDetail{stroke-width:1.15;stroke-opacity:.25}
+#design .realistic-stage #hemDetail{stroke-width:1.25;stroke-opacity:.3}
+@media(max-width:899px){
+ #design .realistic-stage #garmentSvg{width:min(100%,420px);height:96%;max-height:490px}
+}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn header-menu" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · PERSONALIZA · PRODUCE</div></div></div><nav class="desktop-menu" aria-label="Menú principal"><button class="selected" onclick="show('home')">INICIO</button><button onclick="show('design')">DISEÑAR</button><button onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});">PRODUCTOS</button><button onclick="show('quotes')">PRECIOS</button><button onclick="show('profile')">CONTACTO</button></nav><div class="header-actions"><button class="iconbtn" aria-label="Buscar" onclick="document.querySelector('.section-head').scrollIntoView({behavior:'smooth'})">⌕</button><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">🛒</button><button class="iconbtn" aria-label="Perfil" onclick="show('profile')">♙</button></div></header>
@@ -530,7 +543,40 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 <div class="field"><label for="mockupFabric">Acabado visual</label><select id="mockupFabric"><option value="cotton">Algodón mate</option><option value="heavy">Algodón pesado</option><option value="sport">Deportivo</option><option value="washed">Deslavado</option><option value="premium">Premium suave</option></select></div>
 </div>
 <div class="shirt-stage realistic-stage" id="shirtStage" aria-label="Vista previa interactiva de la playera">
-<svg id="garmentSvg" class="realistic-shirt garment-realistic-svg" viewBox="0 0 300 320" role="img" aria-label="Vista previa de prenda negra"><defs><linearGradient id="fabricShadeGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".2"/><stop offset=".35" stop-color="#fff" stop-opacity=".02"/><stop offset=".7" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity=".12"/></linearGradient></defs><path id="garmentShape" d="M99 34 L126 23Q150 47 174 23L201 34 255 71 228 119 199 103 204 263Q150 279 96 263L101 103 72 119 45 71Z" fill="#202020"/><path id="garmentShade" d="M99 34 L126 23Q150 47 174 23L201 34 255 71 228 119 199 103 204 263Q150 279 96 263L101 103 72 119 45 71Z" fill="url(#fabricShadeGradient)"/><path id="neckDetail" class="garment-detail" d="M126 24Q150 60 174 24"/><path id="seamDetail" class="garment-detail" d="M110 112V251M190 112V251"/><path id="hemDetail" class="garment-detail" d="M98 263Q150 274 202 263"/></svg>
+<svg id="garmentSvg" class="realistic-shirt garment-realistic-svg" viewBox="0 0 300 320" role="img" aria-label="Vista previa de playera con textura, costuras y pliegues">
+<defs>
+ <linearGradient id="fabricShadeGradient" x1="0" y1="0" x2="1" y2=".15">
+  <stop offset="0" stop-color="#fff" stop-opacity=".27"/><stop offset=".16" stop-color="#fff" stop-opacity=".09"/><stop offset=".36" stop-color="#000" stop-opacity=".13"/><stop offset=".5" stop-color="#fff" stop-opacity=".09"/><stop offset=".68" stop-color="#000" stop-opacity=".25"/><stop offset=".86" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity=".2"/>
+ </linearGradient>
+ <linearGradient id="fabricBodyGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".2" stop-color="#fff" stop-opacity=".025"/><stop offset=".52" stop-color="#000" stop-opacity=".09"/><stop offset=".76" stop-color="#fff" stop-opacity=".035"/><stop offset="1" stop-color="#000" stop-opacity=".17"/></linearGradient>
+ <linearGradient id="collarGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset=".45" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient>
+ <filter id="shirtDropShadow" x="-25%" y="-15%" width="150%" height="145%"><feGaussianBlur in="SourceAlpha" stdDeviation="3.5"/><feOffset dy="4"/><feComponentTransfer><feFuncA type="linear" slope=".42"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <clipPath id="shirtFabricClip"><path id="shirtFabricClipShape" d="M99 34 L126 23Q150 47 174 23L201 34 255 71 228 119 199 103 204 263Q150 279 96 263L101 103 72 119 45 71Z"/></clipPath>
+</defs>
+<path id="garmentShape" d="M99 34 L126 23Q150 47 174 23L201 34 255 71 228 119 199 103 204 263Q150 279 96 263L101 103 72 119 45 71Z" fill="#202020" filter="url(#shirtDropShadow)"/>
+<path id="garmentShade" d="M99 34 L126 23Q150 47 174 23L201 34 255 71 228 119 199 103 204 263Q150 279 96 263L101 103 72 119 45 71Z" fill="url(#fabricShadeGradient)"/>
+<path id="fabricBody" d="M99 34 L126 23Q150 47 174 23L201 34 255 71 228 119 199 103 204 263Q150 279 96 263L101 103 72 119 45 71Z" fill="url(#fabricBodyGradient)" pointer-events="none"/>
+<g id="fabricTexture" clip-path="url(#shirtFabricClipShape)" fill="none" stroke-linecap="round" pointer-events="none">
+ <path d="M111 43 Q126 57 122 82 Q119 101 126 122 M188 43 Q174 60 179 82 Q183 102 175 123" stroke="#fff" stroke-opacity=".09" stroke-width="2"/>
+ <path d="M104 118 Q111 143 105 170 T105 224 M196 117 Q189 145 195 170 T195 224" stroke="#000" stroke-opacity=".19" stroke-width="4"/>
+ <path d="M112 132 Q119 157 114 180 M188 132 Q181 157 186 180" stroke="#fff" stroke-opacity=".12" stroke-width="1.7"/>
+ <path d="M103 232 Q117 226 127 234 T151 236 M197 232 Q183 226 173 234 T151 236" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+ <path d="M109 246 Q126 253 142 248 M191 246 Q174 253 158 248" stroke="#000" stroke-opacity=".22" stroke-width="2.5"/>
+ <path d="M84 78 L105 105 M216 105 L237 78" stroke="#fff" stroke-opacity=".15" stroke-width="1.5"/>
+ <path d="M77 83 L96 111 M223 111 L242 83" stroke="#000" stroke-opacity=".2" stroke-width="2"/>
+</g>
+<path id="neckDetail" d="M126 24Q150 60 174 24" fill="none" stroke="#000" stroke-opacity=".58" stroke-width="8" stroke-linecap="round"/>
+<path d="M127 25Q150 56 173 25" fill="none" stroke="url(#collarGradient)" stroke-width="6" stroke-linecap="round" pointer-events="none"/>
+<path d="M129 27Q150 52 171 27" fill="none" stroke="#fff" stroke-opacity=".34" stroke-width="1.2" stroke-linecap="round" pointer-events="none"/>
+<path id="seamDetail" class="garment-detail" d="M110 112V251M190 112V251"/>
+<g id="extraStitching" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width=".8" pointer-events="none">
+ <path d="M100 105 L73 116 M200 105 L227 116 M100 107 L74 118 M200 107 L226 118"/>
+ <path d="M97 261 Q150 274 203 261" stroke-opacity=".18" stroke-width="1"/>
+ <path d="M103 265 Q150 278 197 265" stroke="#000" stroke-opacity=".36" stroke-width="1.5"/>
+ <path d="M102 267 Q150 279 198 267" stroke-dasharray="1.4 2.4" stroke-opacity=".32"/>
+</g>
+<path id="hemDetail" class="garment-detail" d="M98 263Q150 274 202 263"/>
+</svg>
 <div id="shirtTint" class="shirt-tint" aria-hidden="true"></div>
 <div class="shirt-hotspot" data-placement="upper" title="Espalda alta / zona superior"></div>
 <div class="shirt-hotspot" data-placement="left" title="Pecho izquierdo"></div>
