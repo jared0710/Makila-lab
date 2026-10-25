@@ -148,7 +148,7 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 #home .section-head h2{color:#f6f0e5}
 #home .category{background:linear-gradient(160deg,#111 0%,#050505 78%)!important;border:1px solid #a77b35!important;border-radius:13px!important;overflow:hidden}
 #home .category b{color:#f8f3e8;letter-spacing:.12em}
-#home .category img{filter:grayscale(1) brightness(.62) contrast(1.2);background:#090909}
+#home .category img{filter:none;object-fit:contain;object-position:center;background:#090909}
 @media(max-width:650px){#home .hero{grid-template-columns:1fr;min-height:unset;padding:27px 18px 12px}#home .hero h1{font-size:38px}#home .hero-apparel{height:210px;margin-top:10px}#home .hero-features{gap:6px}#home .hero-features span{font-size:8px;padding:7px 8px}}
 
 /* Correcciones de imágenes para la portada móvil */
@@ -167,7 +167,7 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 @media(max-width:650px){#home .category img{height:185px;padding:8px}}
 /* Ajuste de portada: fotografía real en lugar de siluetas geométricas */
 #home .hero-apparel{height:310px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:12px;background:#080706;box-shadow:inset 0 0 50px #000}
-#home .hero-product-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:brightness(.58) contrast(1.12);mask-image:linear-gradient(90deg,transparent 0%,#000 18%,#000 86%,transparent 100%)}
+#home .hero-product-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:brightness(1) contrast(1.04);mask-image:none}
 #home .apparel-piece{display:none!important}
 #home .category img{object-fit:cover;object-position:center;background:#100e0b;filter:none}
 @media(max-width:650px){#home .hero-apparel{height:210px;margin-top:10px}#home .hero-product-photo{object-position:center 42%}}
