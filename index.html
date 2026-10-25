@@ -543,6 +543,47 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
   #home .categories .category img{height:clamp(165px,48vw,215px)}
 }
 
+
+/* Corrección definitiva de las tarjetas: recortar el texto que viene dentro de las fotos */
+#home .categories .category{
+  overflow:hidden;
+  isolation:isolate;
+  background:#080808;
+}
+#home .categories .category img{
+  width:100% !important;
+  height:clamp(165px,48vw,215px) !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center top !important;
+  padding:0 !important;
+  margin:0 !important;
+  transform:scale(1.22);
+  transform-origin:50% 0%;
+  filter:brightness(1.2) contrast(1.08) saturate(1.08) !important;
+}
+#home .categories .category:after{
+  content:"";
+  position:absolute;
+  inset:0 0 43px !important;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent 65%,#0003 100%) !important;
+}
+#home .categories .category b{
+  position:relative;
+  z-index:2;
+  background:#090909 !important;
+  min-height:44px;
+  padding:11px 4px !important;
+  font-size:12px;
+  letter-spacing:1.4px;
+  text-align:center;
+}
+@media(max-width:480px){
+ #home .categories .category img{height:clamp(155px,43vw,195px) !important;transform:scale(1.26)}
+}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn header-menu" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · PERSONALIZA · PRODUCE</div></div></div><nav class="desktop-menu" aria-label="Menú principal"><button class="selected" onclick="show('home')">INICIO</button><button onclick="show('design')">DISEÑAR</button><button onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});">PRODUCTOS</button><button onclick="show('quotes')">PRECIOS</button><button onclick="show('profile')">CONTACTO</button></nav><div class="header-actions"><button class="iconbtn" aria-label="Buscar" onclick="document.querySelector('.section-head').scrollIntoView({behavior:'smooth'})">⌕</button><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">🛒</button><button class="iconbtn" aria-label="Perfil" onclick="show('profile')">♙</button></div></header>
