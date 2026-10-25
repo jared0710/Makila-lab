@@ -1,7 +1,7 @@
 name: Validate MAKILA LAB
 on:
   push:
-    branches: [main]
+    branches: [main, feature/openai-shirt-assistant]
   pull_request:
     branches: [main]
 jobs:
@@ -14,3 +14,5 @@ jobs:
           node-version: 22
       - name: Validate HTML and inline JavaScript
         run: node scripts/validate-html.mjs
+      - name: Validate OpenAI Netlify function syntax
+        run: node --check netlify/functions/design-assistant.mjs
