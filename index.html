@@ -408,17 +408,19 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 
 
 
-/* Tarjetas de categoría: encuadre natural, sin zoom ni recortes agresivos */
+
+/* Encajar la fotografía completa dentro de la tarjeta con margen de seguridad */
 #home .categories .category{
  display:flex!important;flex-direction:column!important;overflow:hidden!important;
- padding:0!important;min-width:0!important;
+ padding:0!important;min-width:0!important;background:#090909!important;
 }
 #home .categories .category img{
  display:block!important;width:100%!important;height:clamp(180px,48vw,230px)!important;
  object-fit:contain!important;object-position:center center!important;
- transform:none!important;padding:8px!important;margin:0!important;
- box-sizing:border-box!important;background:#101010!important;
- filter:brightness(1.08) contrast(1.02)!important;
+ transform:scale(.82)!important;transform-origin:center center!important;
+ padding:10px!important;margin:0!important;box-sizing:border-box!important;
+ background:radial-gradient(ellipse at center,#211b13 0%,#101010 76%)!important;
+ filter:brightness(1.12) contrast(1.03)!important;
 }
 #home .categories .category b{
  display:flex!important;position:relative!important;z-index:2!important;
@@ -429,7 +431,11 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 #home .categories .category .category-action{display:none!important}
 #home .categories .category:after{content:none!important}
 @media(max-width:480px){
- #home .categories .category img{height:clamp(180px,48vw,220px)!important;transform:none!important;object-fit:contain!important}
+ #home .categories .category img{
+  height:clamp(180px,48vw,220px)!important;
+  transform:scale(.80)!important;
+  object-fit:contain!important;
+ }
 }
 </style></head>
 <body><main class="app">
