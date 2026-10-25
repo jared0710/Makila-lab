@@ -357,6 +357,41 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 }
 @media(max-width:759px){.desktop-menu,.header-actions{display:none}}
 
+
+/* Reference match pass: exact page proportions and high-contrast gold details */
+@media(min-width:760px){
+ #home .hero{height:405px!important;min-height:405px!important;border:0!important;border-radius:0!important;margin:0!important;padding:34px 3.6%!important;grid-template-columns:43% 57%!important;background:radial-gradient(ellipse at 78% 48%,#3a2917 0%,#130d07 34%,#050505 72%)!important}
+ #home .hero-content{max-width:570px!important;padding:0!important}
+ #home .hero h1{font-size:clamp(50px,4.6vw,72px)!important;line-height:.98!important;letter-spacing:-1.8px!important}
+ #home .hero .hero-apparel{height:100%!important;min-height:320px!important;max-height:420px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+ #home .hero .hero-product-photo{object-fit:cover!important;object-position:center 42%!important;filter:brightness(.9) contrast(1.08)!important;mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 100%)!important}
+ #home .categories{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;padding:0 3%!important}
+ #home .category{min-height:400px!important;border:1px solid #b28a47!important;border-radius:15px!important;background:#080706!important}
+ #home .category img{height:270px!important;object-fit:cover!important;object-position:center!important;filter:brightness(.92) contrast(1.08)!important;padding:0!important}
+ #home .category b{font-size:17px!important;letter-spacing:2px!important;padding:16px 5px 4px!important;background:#080706!important}
+ #home .category .category-caption{display:block!important;text-align:center!important;font-size:12px!important;color:#c8beb0!important;padding:5px 4px 12px!important}
+ #home .category .category-action{display:block!important;width:76%!important;margin:0 auto 16px!important;border:1px solid #d2ab62!important;border-radius:24px!important;padding:10px!important;text-align:center!important;font-size:10px!important;letter-spacing:1px!important;color:#f0d6a1!important}
+ #home .category:after{display:none!important}
+}
+@media(max-width:759px){
+ #home .hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;height:auto!important;min-height:0!important;margin:0!important;border:0!important;border-radius:0!important;padding:24px 16px 0!important;background:radial-gradient(ellipse at 82% 72%,#2e2114 0%,#100b06 35%,#050505 75%)!important}
+ #home .hero-content{max-width:none!important;padding:0!important}
+ #home .hero .eyebrow{font-size:10px!important;letter-spacing:2.5px!important}
+ #home .hero h1{font-size:clamp(34px,9vw,48px)!important;line-height:.98!important;margin:14px 0!important}
+ #home .hero p{font-size:14px!important;max-width:320px!important}
+ #home .hero-features{gap:7px!important;margin:16px 0!important}
+ #home .hero-features span{font-size:8px!important;letter-spacing:.3px!important;padding:7px 8px!important}
+ #home .hero .hero-apparel{height:230px!important;min-height:230px!important;width:calc(100% + 32px)!important;margin:0 -16px!important;border:0!important;border-radius:0!important;background:transparent!important}
+ #home .hero .hero-product-photo{object-fit:cover!important;object-position:center 40%!important;filter:brightness(.9) contrast(1.08)!important;mask-image:linear-gradient(180deg,transparent 0%,#000 12%,#000 100%)!important}
+ #home .section-head{margin:22px 14px 12px!important}
+ #home .categories{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;padding:0 12px!important}
+ #home .category{min-height:0!important;border:1px solid #b28a47!important;border-radius:12px!important;background:#080706!important}
+ #home .category img{height:160px!important;object-fit:cover!important;filter:brightness(.94) contrast(1.05)!important;padding:0!important}
+ #home .category b{font-size:11px!important;letter-spacing:1.1px!important;padding:12px 3px!important}
+ #home .category .category-caption,#home .category .category-action{display:none!important}
+ #home .category:after{display:none!important}
+}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn header-menu" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · PERSONALIZA · PRODUCE</div></div></div><nav class="desktop-menu" aria-label="Menú principal"><button class="selected" onclick="show('home')">INICIO</button><button onclick="show('design')">DISEÑAR</button><button onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});">PRODUCTOS</button><button onclick="show('quotes')">PRECIOS</button><button onclick="show('profile')">CONTACTO</button></nav><div class="header-actions"><button class="iconbtn" aria-label="Buscar" onclick="document.querySelector('.section-head').scrollIntoView({behavior:'smooth'})">⌕</button><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">🛒</button><button class="iconbtn" aria-label="Perfil" onclick="show('profile')">♙</button></div></header>
