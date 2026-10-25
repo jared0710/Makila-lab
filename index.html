@@ -172,6 +172,35 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 #home .apparel-piece{display:none!important}
 #home .category img{object-fit:cover;object-position:center;background:#100e0b;filter:grayscale(1) brightness(.7) contrast(1.1)}
 @media(max-width:650px){#home .hero-apparel{height:210px;margin-top:10px}#home .hero-product-photo{object-position:center 42%}}
+
+/* MAKILA LAB designer layout refinement: preview first on phones, three-panel workspace on desktop */
+@media(max-width:759px){
+ #design .designer{display:flex;flex-direction:column;gap:12px}
+ #design .designer>.eyebrow,#design .designer>h2,#design .designer>p{order:0}
+ #design .designer>.mockup-controls{order:1}
+ #design .designer>#shirtStage{order:2;min-height:390px}
+ #design .designer>.view-buttons{order:3}
+ #design .designer>.zoom-control{order:4}
+ #design .designer>.designer-tools{order:5}
+ #design .designer>.field:has(#garmentColorPicker){order:6}
+ #design .designer>.field:has(#garmentColorPicker)+.field{order:7}
+ #design .designer>.ai-assistant{order:8}
+ #design .designer>.fullbtn{order:9}
+}
+@media(min-width:760px){
+ #design .designer{display:grid;grid-template-columns:minmax(130px,170px) minmax(300px,1fr) minmax(280px,340px);align-items:start;gap:14px;padding:18px}
+ #design .designer>.eyebrow{grid-column:1/-1}
+ #design .designer>h2,#design .designer>p{grid-column:1/-1}
+ #design .designer>.mockup-controls{grid-column:3;grid-row:4;display:grid;grid-template-columns:1fr;}
+ #design .designer>#shirtStage{grid-column:2;grid-row:4 / span 3;min-height:540px;margin:0}
+ #design .designer>.view-buttons{grid-column:2;grid-row:7}
+ #design .designer>.zoom-control{grid-column:2;grid-row:8}
+ #design .designer>.designer-tools{grid-column:1;grid-row:4 / span 5;margin:0}
+ #design .designer>.field:has(#garmentColorPicker){grid-column:3;grid-row:5}
+ #design .designer>.field:has(#garmentColorPicker)+.field{grid-column:3;grid-row:6}
+ #design .designer>.ai-assistant{grid-column:3;grid-row:7 / span 2;margin:0}
+ #design .designer>.fullbtn{grid-column:3;grid-row:9;align-self:start}
+}
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
@@ -570,31 +599,3 @@ setColor=function(v,btn){customGarmentHex=null;presetSetColor(v,btn);const prese
 setGarmentZoom(100);updateMockupControls();
 
 </script></body></html>
-/* MAKILA LAB designer layout refinement: preview first on phones, three-panel workspace on desktop */
-@media(max-width:759px){
- #design .designer{display:flex;flex-direction:column;gap:12px}
- #design .designer>.eyebrow,#design .designer>h2,#design .designer>p{order:0}
- #design .designer>.mockup-controls{order:1}
- #design .designer>#shirtStage{order:2;min-height:390px}
- #design .designer>.view-buttons{order:3}
- #design .designer>.zoom-control{order:4}
- #design .designer>.designer-tools{order:5}
- #design .designer>.field:has(#garmentColorPicker){order:6}
- #design .designer>.field:has(#garmentColorPicker)+.field{order:7}
- #design .designer>.ai-assistant{order:8}
- #design .designer>.fullbtn{order:9}
-}
-@media(min-width:760px){
- #design .designer{display:grid;grid-template-columns:minmax(130px,170px) minmax(300px,1fr) minmax(280px,340px);align-items:start;gap:14px;padding:18px}
- #design .designer>.eyebrow{grid-column:1/-1}
- #design .designer>h2,#design .designer>p{grid-column:1/-1}
- #design .designer>.mockup-controls{grid-column:3;grid-row:4;display:grid;grid-template-columns:1fr;}
- #design .designer>#shirtStage{grid-column:2;grid-row:4 / span 3;min-height:540px;margin:0}
- #design .designer>.view-buttons{grid-column:2;grid-row:7}
- #design .designer>.zoom-control{grid-column:2;grid-row:8}
- #design .designer>.designer-tools{grid-column:1;grid-row:4 / span 5;margin:0}
- #design .designer>.field:has(#garmentColorPicker){grid-column:3;grid-row:5}
- #design .designer>.field:has(#garmentColorPicker)+.field{grid-column:3;grid-row:6}
- #design .designer>.ai-assistant{grid-column:3;grid-row:7 / span 2;margin:0}
- #design .designer>.fullbtn{grid-column:3;grid-row:9;align-self:start}
-}
