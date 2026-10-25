@@ -158,6 +158,13 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 #home .category{min-width:0}
 #home .category::after{pointer-events:none}
 @media(max-width:650px){#home .category img{height:185px}}
+
+/* Fotos de producto sin modelos: presentación más limpia */
+#home .category img{width:100%;height:220px;display:block;object-fit:contain;object-position:center;background:radial-gradient(ellipse at center,#24211c 0%,#090909 72%);filter:grayscale(1) brightness(.72) contrast(1.12);padding:12px}
+#home .category{display:flex;flex-direction:column;align-items:stretch;overflow:hidden}
+#home .category img+span,#home .category .category-label{display:block}
+#home .category{color:#f5f0e7}
+@media(max-width:650px){#home .category img{height:185px;padding:8px}}
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
@@ -316,7 +323,10 @@ function clearLogo(){ $('logoUpload').value='';$('logoPreview').removeAttribute(
 $('logoUpload').addEventListener('change',e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(!file.type.startsWith('image/')){$('uploadStatus').textContent='Selecciona un archivo de imagen.';return}if(file.size>5*1024*1024){$('uploadStatus').textContent='La imagen debe pesar menos de 5 MB.';e.target.value='';return}const reader=new FileReader();reader.onload=()=>{$('logoPreview').src=reader.result;$('logoPreview').dataset.loaded='1';$('uploadStatus').textContent='Logo cargado en la vista previa.';updateLogoPreview()};reader.readAsDataURL(file)});
 $('shirtStage').querySelectorAll('.shirt-hotspot').forEach(node=>node.addEventListener('click',()=>{const value=node.dataset.placement;$('previewPlacement').value=value;$('previewPlacement').dispatchEvent(new Event('change'));}));
 $('printText').addEventListener('input',updateLogoPreview);$('logoScale').addEventListener('input',updateLogoPreview);$('logoY').addEventListener('input',updateLogoPreview);$('previewPlacement').addEventListener('change',()=>{const map={center:'Centro del pecho',left:'Pecho izquierdo',right:'Pecho derecho',upper:'Espalda alta',lower:'Etiqueta exterior'};$('logoPlacement').value=map[$('previewPlacement').value]||'Por definir';updateLogoPreview()});$('logoPlacement').addEventListener('change',()=>{const map={'Pecho izquierdo':'left','Centro del pecho':'center','Pecho derecho':'right','Espalda alta':'upper','Espalda completa':'upper','Manga':'right','Etiqueta exterior':'lower','Por definir':'center'};$('previewPlacement').value=map[$('logoPlacement').value]||'center';updateLogoPreview()});
-function showDesignSpecifications(){const box=$('designSpecifications');if(box)box.classList.remove('hide');box?.scrollIntoView({behavior:'smooth',block:'start'});}\nfunction choose(v){selectedCategory=v;const title=$('categoryDetailTitle');const desc=$('categoryDetailDescription');if(title)title.textContent=v.toUpperCase();if(desc)desc.textContent='Explora las opciones de '+v.toLowerCase()+', personaliza el color, el corte y el estampado, y prepara tu diseño para cotizar.';$('kind').value=v;updateGarmentPreview();show('categoryDetail')}\nlet selectedCategory='Playeras';\nfunction startCategoryDesign(){$('kind').value=selectedCategory;updateGarmentPreview();show('design')}
+function showDesignSpecifications(){const box=$('designSpecifications');if(box)box.classList.remove('hide');box?.scrollIntoView({behavior:'smooth',block:'start'});}
+function choose(v){selectedCategory=v;const title=$('categoryDetailTitle');const desc=$('categoryDetailDescription');if(title)title.textContent=v.toUpperCase();if(desc)desc.textContent='Explora las opciones de '+v.toLowerCase()+', personaliza el color, el corte y el estampado, y prepara tu diseño para cotizar.';$('kind').value=v;updateGarmentPreview();show('categoryDetail')}
+let selectedCategory='Playeras';
+function startCategoryDesign(){$('kind').value=selectedCategory;updateGarmentPreview();show('design')}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function setColor(v,btn){selectedColor=v;$('color').value=v;document.querySelectorAll('.swatch').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));updateGarmentPreview()}
 function setMaterial(v,btn){selectedMaterial=v;$('fabric').value=v;document.querySelectorAll('.material').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)))}
