@@ -53,7 +53,7 @@
 
 <div class="features"><button type="button" onclick="show('quotes')"><strong>◇</strong>PRECIOS POR COTIZAR<span>Según tus especificaciones</span></button><button type="button" onclick="show('materials')"><strong>⚙</strong>MATERIALES<span>Compara opciones</span></button><button type="button" onclick="show('maquilas')"><strong>▥</strong>MAQUILAS<span>Conexión en desarrollo</span></button></div>
 </section>
-<section id="design" class="panel"><h2>Diseña tu prenda</h2><p class="sub">Completa los datos para crear un borrador de especificaciones. La vista de prenda es una referencia; aún no es un editor gráfico de patrones.</p>
+<section id="design" class="panel"><h2>Diseña tu prenda</h2><p class="sub">Personaliza la prenda y arrastra horizontalmente sobre la vista para cambiar entre frente, espalda y laterales. El giro actual usa cuatro vistas; la rotación 3D continua requiere un modelo 3D real.</p>
 <section class="designer"><div class="eyebrow">PERSONALIZA A TU MANERA</div><h2>DISEÑA <span>TU PRENDA</span></h2><p>Elige material, color, cantidad y detalles para preparar tu solicitud.</p>
 <div class="mockup-controls">
 <div class="field"><label for="mockupSide">Vista</label><select id="mockupSide"><option value="front">Frente</option><option value="back">Espalda</option><option value="left">Lateral izquierdo</option><option value="right">Lateral derecho</option></select></div>
@@ -373,6 +373,29 @@ function directPointerUp(e){
   directGesture.pinchStartDist=null;
  }
  if(!directPointers.size){directGesture=null;saveMockupSide()}
+}
+/* Giro por gesto: alterna las cuatro vistas al arrastrar sobre el fondo de la prenda. */
+let garmentSwipeStart=null;
+const garmentViews=['front','right','back','left'];
+function rotateGarmentBySwipe(deltaX){
+ const current=garmentViews.indexOf(activeMockupSide);
+ const step=deltaX<0?1:-1;
+ const next=garmentViews[(Math.max(0,current)+step+garmentViews.length)%garmentViews.length];
+ setMockupView(next);
+}
+const garmentSwipeStage=$('shirtStage');
+if(garmentSwipeStage){
+ garmentSwipeStage.addEventListener('pointerdown',e=>{
+  if(e.target.closest('#logoPreview,#logoTextPreview,.shirt-hotspot'))return;
+  garmentSwipeStart={x:e.clientX,y:e.clientY,id:e.pointerId};
+ },{passive:true});
+ garmentSwipeStage.addEventListener('pointerup',e=>{
+  if(!garmentSwipeStart||garmentSwipeStart.id!==e.pointerId)return;
+  const dx=e.clientX-garmentSwipeStart.x,dy=e.clientY-garmentSwipeStart.y;
+  if(Math.abs(dx)>38&&Math.abs(dx)>Math.abs(dy)*1.2)rotateGarmentBySwipe(dx);
+  garmentSwipeStart=null;
+ },{passive:true});
+ garmentSwipeStage.addEventListener('pointercancel',()=>{garmentSwipeStart=null},{passive:true});
 }
 function setGarmentZoom(value){garmentZoom=Math.max(.7,Math.min(1.4,Number(value)/100));$('shirtStage')?.style.setProperty('--garment-zoom',String(garmentZoom));if($('garmentZoom'))$('garmentZoom').value=String(Math.round(garmentZoom*100));if($('garmentZoomValue'))$('garmentZoomValue').textContent=Math.round(garmentZoom*100)+'%'}
 function stageZoomPointerDown(e){if(e.pointerType!=='touch'||e.target.closest('#logoPreview,#logoTextPreview'))return;stageZoomPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(stageZoomPointers.size===2){const p=[...stageZoomPointers.values()];stagePinch={distance:Math.max(1,Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y)),zoom:garmentZoom};e.preventDefault()}}
