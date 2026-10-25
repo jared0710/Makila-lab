@@ -799,3 +799,10 @@ setColor=function(v,btn){customGarmentHex=null;presetSetColor(v,btn);const prese
 setGarmentZoom(100);updateMockupControls();
 
 </script></body></html>
+
+/* Ajuste de tarjetas: ocultar el texto integrado en las fotos y dejar un solo título debajo */
+#home .categories .category{display:flex;flex-direction:column;min-height:0;padding:0;text-align:center}
+#home .categories .category img{height:auto;aspect-ratio:1.55/1;width:100%;object-fit:cover;object-position:center top;flex:0 0 auto;background:#111}
+#home .categories .category b{position:relative;z-index:1;display:block;width:100%;padding:13px 4px;font-size:12px;letter-spacing:1.5px;background:#090909}
+#home .categories .category .category-caption,#home .categories .category .category-action{display:none!important}
+#home .categories .category:after{inset:0 0 43px}
