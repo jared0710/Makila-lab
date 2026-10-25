@@ -98,11 +98,6 @@
 <div class="field color-picker-field"><label for="garmentColorPicker">Elige cualquier tono</label><div style="display:flex;gap:10px;align-items:center"><input id="garmentColorPicker" type="color" value="#202020" aria-label="Elegir color personalizado" style="width:62px;height:48px;padding:3px;background:#111;border:1px solid #6c542a;border-radius:8px;cursor:pointer"><span id="customColorValue" style="font-size:12px;color:#d9c18e">#202020 · Negro</span></div><small style="color:#999">Usa el selector de color para elegir un tono específico para la prenda.</small></div></div>
 <div class="field"><label>MATERIAL</label><div class="materials"><button class="material" aria-pressed="true" onclick="setMaterial('Algodón',this)">Algodón</button><button class="material" aria-pressed="false" onclick="setMaterial('Poliéster',this)">Poliéster</button><button class="material" aria-pressed="false" onclick="setMaterial('Mezclilla',this)">Mezclilla</button><button class="material" aria-pressed="false" onclick="setMaterial('Necesito recomendación',this)">Recomiéndame</button></div></div>
 <button class="fullbtn" onclick="show('design')">CREAR MI DISEÑO →</button></section>
-<button type="button" class="fullbtn" onclick="showDesignSpecifications()">CONTINUAR · TALLAS Y COTIZACIÓN →</button>
-<div id="designSpecifications" class="hide">
-<button type="button" class="material" onclick="show('design')">← Volver al diseño de la prenda</button>
-<h2 style="font-size:22px;margin:18px 0 8px">Tallas y cotización</h2>
-<p class="sub">Completa cantidades, tallas, materiales y costos para preparar la ficha de tu prenda.</p>
 <div class="ai-assistant" aria-labelledby="aiAssistantTitle">
   <h3 id="aiAssistantTitle">✦ Diseña con IA</h3>
   <p class="ai-help">Describe tu playera en español. El asistente puede proponer color, corte y estampado y aplicar esos cambios a la vista previa. Requiere que el servidor de OpenAI esté configurado.</p>
@@ -116,6 +111,12 @@
   <div id="aiStatus" class="ai-status" role="status"></div>
   <div id="aiApplied" class="ai-applied"></div>
 </div>
+<button type="button" class="fullbtn" onclick="showDesignSpecifications()">CONTINUAR · TALLAS Y COTIZACIÓN →</button>
+<div id="designSpecifications" class="hide">
+<button type="button" class="material" onclick="show('design')">← Volver al diseño de la prenda</button>
+<h2 style="font-size:22px;margin:18px 0 8px">Tallas y cotización</h2>
+<p class="sub">Completa cantidades, tallas, materiales y costos para preparar la ficha de tu prenda.</p>
+
 
 <div class="field"><label for="kind">Tipo de prenda</label><select id="kind"><option>Playeras</option><option>Chamarras</option><option>Pantalones</option><option>Gorras</option><option>Otra prenda</option></select></div>
 <div class="formgrid"><div class="field"><label for="qty">Cantidad total de piezas</label><input id="qty" type="number" min="1" max="100000" value="50"></div><div class="field"><label for="sizes">Rango de tallas</label><select id="sizes"><option value="XS–XL">XS a XL</option><option value="XS–2XL">XS a 2XL</option><option value="XS–3XL">XS a 3XL</option><option value="S–XL">S a XL</option><option value="Unitalla">Unitalla</option><option value="Tallas personalizadas">Tallas personalizadas</option></select></div></div>
