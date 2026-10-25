@@ -201,6 +201,16 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
  #design .designer>.fullbtn{grid-column:3;grid-row:9;align-self:start}
 }
 
+
+/* MAKILA LAB visual correction: clearer product photos and balanced mobile cards */
+#home .hero-product-photo{filter:brightness(.92) contrast(1.04) saturate(.94);mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 96%)}
+#home .hero-apparel{background:#17130d;box-shadow:inset 0 0 22px #0006}
+#home .category img{filter:grayscale(.18) brightness(.96) contrast(1.02)!important;background:#17130d!important;object-fit:cover!important;padding:0!important}
+#home .category:after{background:linear-gradient(0deg,#0005,transparent 55%)!important}
+#home .category{background:#111!important;box-shadow:0 8px 22px #0008}
+#home .category b{padding:13px 4px;color:#fff8e9;letter-spacing:.14em}
+@media(max-width:650px){#home .hero{padding:22px 16px 14px;gap:10px}#home .hero-apparel{height:220px;margin-top:8px;border:1px solid #6f5429;border-radius:12px}#home .hero-product-photo{object-position:center 42%}#home .category img{height:180px!important}#home .category b{font-size:11px;padding:12px 3px}}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
