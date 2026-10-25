@@ -237,7 +237,7 @@ function updateGarmentPreview(){
  const cut=styleMap[$('cutStyle')?.value]||$('cut')?.value||'Regular / clásico';
  let path=kind==='Playeras'?(cuts[cut]||silhouettes.Playeras):(silhouettes[kind]||silhouettes.Playeras);
  if(side==='left'||side==='right')path=sidePaths[kind]||sidePaths.Playeras;
- const shape=$('garmentShape'),shade=$('garmentShade');if(shape){shape.setAttribute('fill',colorHex);shape.setAttribute('d',path)}if(shade)shade.setAttribute('d',path);
+ const shape=$('garmentShape'),shade=$('garmentShade');if(shape){shape.setAttribute('fill',colorHex);shape.style.fill=colorHex;shape.setAttribute('d',path)}if(shade){shade.setAttribute('d',path);shade.style.fill='url(#fabricShadeGradient)'}const colorPicker=$('garmentColorPicker');if(colorPicker&&customGarmentHex)colorPicker.value=customGarmentHex;
  const neck=$('neckDetail'),seams=$('seamDetail'),hem=$('hemDetail');
  if(neck){neck.style.display=['Gorras','Pantalones'].includes(kind)||side==='left'||side==='right'?'none':'';neck.setAttribute('d',$('cutStyle')?.value==='polo'?'M126 24 L140 45 L150 35 L160 45 L174 24':(side==='back'?'M126 24 Q150 38 174 24':'M126 24 Q150 60 174 24'))}
  if(seams){seams.style.display=kind==='Gorras'?'none':'';const seam={'Playeras':side==='back'?'M150 47 L150 258':(side==='left'||side==='right'?'M150 40 L150 260':($('cutStyle')?.value==='raglan'?'M126 24 L108 65 L110 112 M174 24 L192 65 L190 112':'M110 112 L110 251 M190 112 L190 251')),'Chamarras':'M150 38 L150 264 M106 111 L106 253 M194 111 L194 253','Pantalones':'M150 35 L148 137 L151 269 M138 146 L111 267 M162 146 L191 267','Gorras':'M150 43 L150 103'};seams.setAttribute('d',seam[kind]||seam.Playeras)}
