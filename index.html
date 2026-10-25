@@ -38,6 +38,37 @@
 .realistic-stage.tech-none .logo-text-preview{background:transparent;text-shadow:none;border-radius:0}
 /* Gestos táctiles para mover y pellizcar el diseño */
 #logoPreview,#logoTextPreview{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+
+/* MAKILA LAB premium product-designer layout */
+#design{padding:0 0 24px}
+#design>h2,#design>.sub{margin-left:16px;margin-right:16px}
+#design>.sub{font-size:12px;line-height:1.5;color:#aaa}
+#design .designer{margin:14px 10px 0;padding:14px;border:1px solid #3d3324;border-radius:16px;background:linear-gradient(145deg,#171614,#080808 65%);box-shadow:0 18px 45px #0008}
+#design .designer>.eyebrow,#design .designer>h2,#design .designer>p{display:none}
+#design .mockup-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#design .realistic-stage{min-height:390px;margin:10px 0 12px;border:1px solid #29251e;border-radius:13px;background:radial-gradient(ellipse at 50% 42%,#373027 0%,#171512 42%,#080808 80%);box-shadow:inset 0 0 35px #0008}
+#design .realistic-stage #garmentSvg{width:min(88%,330px);height:360px;filter:drop-shadow(0 18px 16px #0009)}
+#design .design-badge{background:#080808c9;border:1px solid #6d542c;color:#e9bd63;letter-spacing:1.3px;font-size:8px}
+#design .view-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#design .view-buttons button{font-size:9px;letter-spacing:.5px;padding:11px 3px;border-radius:8px;border:1px solid #39342b;background:#111;color:#ddd}
+#design .view-buttons button[aria-pressed="true"]{border-color:#e9bd63;color:#f6d58f;background:#2b2113}
+#design .designer-tools{border:1px solid #302a20;border-radius:12px;padding:12px;margin-top:12px;background:#0d0d0d}
+#design .designer-tools h3{font-size:17px!important}
+#design .designer-tools .field{margin:13px 0}
+#design .designer-tools input:not([type=range]):not([type=file]),#design .designer-tools select{background:#171717;border:1px solid #49443b;border-radius:8px;color:#fff;padding:12px}
+#design .colorrow{gap:12px;flex-wrap:wrap}
+#design .swatch{width:34px;height:34px;border:2px solid #777}
+#design .swatch[aria-pressed="true"]{outline:2px solid #e9bd63;outline-offset:3px}
+#design .materials{display:flex;gap:7px;flex-wrap:wrap}
+#design .materials .material{flex:1;min-width:90px}
+#designSpecifications{margin:18px 10px 0;padding:14px;border:1px solid #40331f;border-radius:14px;background:#101010}
+#designSpecifications .ai-assistant{border:1px solid #40331f;border-radius:13px;padding:14px;background:linear-gradient(145deg,#171614,#090909)}
+#designSpecifications .ai-assistant h3{font-size:19px;color:#f6d58f}
+#designSpecifications .ai-form{display:flex;gap:7px;flex-wrap:wrap}
+#designSpecifications .ai-form input{flex:1;min-width:0;background:#171717;border:1px solid #49443b;border-radius:8px;color:#fff;padding:12px}
+#designSpecifications .ai-form button{background:linear-gradient(100deg,#e5b653,#f8d987);color:#111;border:0;border-radius:8px;padding:12px;font-weight:900}
+#design>button.fullbtn{margin:16px 10px 0;width:calc(100% - 20px);min-height:58px;border:0;border-radius:10px;background:linear-gradient(100deg,#e5b653,#f8d987);color:#111;font-weight:900;letter-spacing:.5px}
+@media(min-width:760px){.app{max-width:1180px}#design .designer{padding:22px}#design .realistic-stage{min-height:560px}#design .realistic-stage #garmentSvg{height:520px;width:min(70%,440px)}#designSpecifications{max-width:920px;margin-left:auto;margin-right:auto}}
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
