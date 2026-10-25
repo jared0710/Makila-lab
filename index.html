@@ -844,3 +844,9 @@ setColor=function(v,btn){customGarmentHex=null;presetSetColor(v,btn);const prese
 setGarmentZoom(100);updateMockupControls();
 
 </script></body></html>
+<style id="makila-playeras-image-fix">
+/* Corrección puntual: la playera debe ocupar más espacio dentro de su tarjeta */
+#home .category img[src*="02_playeras.webp"]{width:100%!important;height:265px!important;max-height:none!important;object-fit:cover!important;object-position:center 42%!important;padding:0!important;filter:none!important;background:#100d09!important;transform:scale(1.04);}
+#home .category:has(img[src*="02_playeras.webp"]){min-height:0!important;}
+@media(max-width:650px){#home .category img[src*="02_playeras.webp"]{height:230px!important;object-fit:cover!important;object-position:center 42%!important;}}
+</style>
