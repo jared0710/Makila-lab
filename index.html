@@ -428,6 +428,65 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
   #design .designer-tool-rail button span{font-size:20px}
 }
 
+
+/* Ajuste enfocado en la vista de playeras: más prenda, menos espacio vacío */
+#design .realistic-stage{
+  min-height:clamp(360px,62vh,560px);
+  height:clamp(360px,62vh,560px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 38%,#4b4030 0%,#262119 35%,#11100e 72%,#080808 100%);
+}
+#design .realistic-stage #garmentSvg{
+  display:block;
+  width:min(94%,420px);
+  height:94%;
+  max-height:520px;
+  overflow:visible;
+  filter:drop-shadow(0 24px 18px #000b);
+}
+#design .realistic-stage #garmentShape{
+  stroke:#090909;
+  stroke-width:2.4;
+  stroke-linejoin:round;
+}
+#design .realistic-stage #garmentShade{
+  opacity:.9;
+}
+#design .realistic-stage .garment-detail{
+  stroke:#ffffff;
+  stroke-opacity:.2;
+}
+#design .realistic-stage .design-badge{
+  z-index:7;
+}
+#design .view-buttons button{
+  min-height:52px;
+  font-size:11px;
+  letter-spacing:.4px;
+}
+@media(max-width:899px){
+  #design.panel.active{padding:10px 10px 24px}
+  #design .designer{margin:8px 0 0;padding:10px}
+  #design .realistic-stage{
+    min-height:clamp(350px,55vh,500px);
+    height:clamp(350px,55vh,500px);
+    margin:8px 0 10px;
+  }
+  #design .realistic-stage #garmentSvg{
+    width:min(98%,390px);
+    height:94%;
+    max-height:470px;
+  }
+  #design .mockup-controls{gap:6px}
+  #design .view-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #design .view-buttons button{min-height:48px}
+  #design .zoom-control{gap:7px}
+}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn header-menu" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · PERSONALIZA · PRODUCE</div></div></div><nav class="desktop-menu" aria-label="Menú principal"><button class="selected" onclick="show('home')">INICIO</button><button onclick="show('design')">DISEÑAR</button><button onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});">PRODUCTOS</button><button onclick="show('quotes')">PRECIOS</button><button onclick="show('profile')">CONTACTO</button></nav><div class="header-actions"><button class="iconbtn" aria-label="Buscar" onclick="document.querySelector('.section-head').scrollIntoView({behavior:'smooth'})">⌕</button><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">🛒</button><button class="iconbtn" aria-label="Perfil" onclick="show('profile')">♙</button></div></header>
