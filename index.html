@@ -232,6 +232,43 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
  #designSpecifications{margin:14px 0 0;padding:12px}
 }
 
+
+/* Reference-led designer layout: tool rail, hero garment canvas, settings column */
+.designer-tool-rail{display:none}
+@media(min-width:900px){
+ #design .designer{grid-template-columns:118px minmax(360px,1fr) minmax(280px,340px);grid-template-rows:auto auto auto auto;align-items:start;gap:12px;padding:16px}
+ #design .designer-tool-rail{display:flex;grid-column:1;grid-row:1 / span 5;position:sticky;top:14px;flex-direction:column;gap:5px;padding:8px;border:1px solid #332b20;border-radius:12px;background:#0e0e0e}
+ #design .designer-tool-rail button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:76px;border:1px solid transparent;border-radius:9px;background:transparent;color:#d7d2c8;font-size:11px;padding:8px 4px}
+ #design .designer-tool-rail button span{font-size:23px;color:#e9bd63}
+ #design .designer-tool-rail button:hover,#design .designer-tool-rail button.tool-rail-active{border-color:#6b5128;background:#241c10;color:#fff}
+ #design .mockup-controls{grid-column:3;grid-row:1;grid-template-columns:repeat(2,minmax(0,1fr));margin:0}
+ #design .realistic-stage{grid-column:2;grid-row:1 / span 2;min-height:650px;height:650px;margin:0;background:radial-gradient(ellipse at 50% 38%,#4b4132 0%,#252019 48%,#100f0d 82%);border-color:#6d542c}
+ #design .realistic-stage #garmentSvg{width:min(94%,500px)!important;height:590px!important;filter:drop-shadow(0 22px 20px #000a)}
+ #design .view-buttons{grid-column:2;grid-row:3;grid-template-columns:repeat(4,minmax(0,1fr))}
+ #design .zoom-control{grid-column:2;grid-row:4}
+ #design .designer-tools{grid-column:3;grid-row:2 / span 3;margin:0;max-height:690px;overflow:auto}
+ #design .designer>.field:has(#presetColorRow){grid-column:3;grid-row:5}
+ #design .designer>.field:has(.materials){grid-column:3;grid-row:6}
+ #design .designer>button.fullbtn{grid-column:3;grid-row:7;margin:0}
+ #design .realistic-stage .design-badge{font-size:10px}
+}
+@media(min-width:651px) and (max-width:899px){
+ #design .designer{grid-template-columns:minmax(0,1fr) minmax(250px,.8fr)}
+ #design .designer-tool-rail{display:none}
+ #design .mockup-controls{grid-column:2;grid-row:1}
+ #design .realistic-stage{grid-column:1;grid-row:1 / span 3;min-height:520px;height:520px}
+ #design .realistic-stage #garmentSvg{height:460px!important;width:95%!important}
+ #design .view-buttons,#design .zoom-control{grid-column:1}
+ #design .designer-tools{grid-column:2;grid-row:2 / span 3;max-height:570px;overflow:auto}
+ #design .designer>.field:has(#presetColorRow),#design .designer>.field:has(.materials),#design .designer>button.fullbtn{grid-column:2}
+}
+@media(max-width:650px){
+ #design .designer-tool-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-bottom:2px}
+ #design .designer-tool-rail button{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;padding:8px 2px;border:1px solid #332b20;border-radius:8px;background:#101010;color:#ddd;font-size:9px}
+ #design .designer-tool-rail button span{font-size:18px;color:#e9bd63}
+ #design .designer-tool-rail button.tool-rail-active{border-color:#8e6b31;background:#241c10}
+}
+
 </style></head>
 <body><main class="app">
 <header class="header"><button class="iconbtn" aria-label="Abrir mi espacio" onclick="show('profile')">☰</button><div class="brandmark"><span class="mark">M</span><div><div class="logo">MAKILA <span>LAB</span></div><div class="tagline">DISEÑA · COTIZA · PRODUCE</div></div></div><button class="iconbtn" aria-label="Cotizaciones" onclick="show('quotes')">♧</button></header>
@@ -259,6 +296,15 @@ input,select,textarea{background:#101010!important;color:#f5f1e8!important;borde
 </section>
 <section id="design" class="panel"><h2>Diseña tu prenda</h2><p class="sub">Personaliza la prenda y arrastra horizontalmente sobre la vista para cambiar entre frente, espalda y laterales. El giro actual usa cuatro vistas; la rotación 3D continua requiere un modelo 3D real.</p>
 <section class="designer"><div class="eyebrow">PERSONALIZA A TU MANERA</div><h2>DISEÑA <span>TU PRENDA</span></h2><p>Elige material, color, cantidad y detalles para preparar tu solicitud.</p>
+<div class="designer-tool-rail" aria-label="Herramientas de diseño">
+<button type="button" class="tool-rail-active" onclick="document.getElementById('garmentToolsTitle').scrollIntoView({behavior:'smooth',block:'start'})"><span>♧</span>Producto</button>
+<button type="button" onclick="document.getElementById('presetColorRow').scrollIntoView({behavior:'smooth',block:'center'})"><span>◉</span>Color</button>
+<button type="button" onclick="document.getElementById('logoUpload').click()"><span>▧</span>Subir logo</button>
+<button type="button" onclick="document.getElementById('printText').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('printText').focus()"><span>T</span>Texto</button>
+<button type="button" onclick="document.getElementById('visualTechnique').scrollIntoView({behavior:'smooth',block:'center'})"><span>△</span>Gráficos</button>
+<button type="button" onclick="document.getElementById('aiPrompt').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('aiPrompt').focus()"><span>✧</span>IA diseñador</button>
+<button type="button" onclick="document.getElementById('logoScale').scrollIntoView({behavior:'smooth',block:'center'})"><span>◇</span>Capas</button>
+</div>
 <div class="mockup-controls">
 <div class="field"><label for="mockupSide">Vista</label><select id="mockupSide"><option value="front">Frente</option><option value="back">Espalda</option><option value="left">Lateral izquierdo</option><option value="right">Lateral derecho</option></select></div>
 <div class="field"><label for="mockupStyle">Presentación</label><select id="mockupStyle"><option value="studio">Estudio</option><option value="street">Urbano</option><option value="catalog">Catálogo</option><option value="minimal">Minimalista</option></select></div>
